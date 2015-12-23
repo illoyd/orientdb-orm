@@ -27,17 +27,5 @@ require 'orientdb/orm'
 # Test for a database path - if not set, fail immediately
 raise Orientdb::ORM::InvalidConnectionUrlError, "Missing connection string: Assign DATABASE_URL environment variable. (Found: #{ Orientdb::ORM.connection_url })" unless Orientdb::ORM.connection_url
 
-
-# Establish and drop databases
-def create_database_options
-  { database: Orientdb::ORM.connection_uri.database, user: Orientdb::ORM.connection_uri.user, password: Orientdb::ORM.connection_uri.password, type: :graph, storage: :memory }
-end
-
-def drop_database_options
-  { database: Orientdb::ORM.connection_uri.database, user: Orientdb::ORM.connection_uri.user, password: Orientdb::ORM.connection_uri.password }
-end
-
-RSpec.shared_context "with database", :with_database => true do
-  before(:all) { Orientdb::ORM.with { |conn| conn.client.create_database( create_database_options ) } }
-  after(:all)  { Orientdb::ORM.with { |conn| conn.client.delete_database( drop_database_options ) } }
-end
+# Require all helpers
+Dir.glob('./spec/spec_support/**.rb').each { |file| require file }
