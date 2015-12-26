@@ -48,17 +48,16 @@ module ORM
         DateConverter
       when 't' # for datetime
         DateTimeConverter
-      when 'e' # for Set, because arrays and List are serialized as arrays like [3,4,5]
+      when 'e' # for Set
         SetConverter
       when 'x' # for links
         RID
       when 'n' # for linksets
         LinkSetCoercer
-      when 'z' # for linklist
+      when 'z', 'g' # for linklist, linkbag
         LinkListCoercer
 
 #         when 'm' # for linkmap
-#         when 'g' # for linkbag
 
       else
         @field_types[key]
