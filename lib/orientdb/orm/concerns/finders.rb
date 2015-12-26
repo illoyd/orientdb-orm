@@ -13,20 +13,7 @@ module Orientdb
         end
         
         def where(search={})
-        
-          if search.any?
-            where_clause = 'WHERE ' + search.map{ |k,v| "#{ k } = #{ sanitize_parameter(v) }"}.join(" ")
-          else
-            where_clause = nil
-          end
-
-          query = "SELECT FROM #{ self.name.demodulize } #{ where_clause }"
-          #results = Giraffe::App.settings.memory.client.query(query)
-          results = Orientdb::ORM.with { |client| client.query(query) }
-          results.map { |result| new(result) }
-          
-          rescue Orientdb4r::NotFoundError
-            nil
+          Orientdb::ORM::Queries::Select.new.from(self.name.demodulize).where(search).execute
         end
         
         def find_by(search={})

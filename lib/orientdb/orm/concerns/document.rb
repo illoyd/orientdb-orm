@@ -27,7 +27,7 @@ module Orientdb
           attributes ||= {}
 
           # Initialise the attributes hash using unprotected attributes; this enables magic attributes assignment
-          @attributes = attributes.except(*PROTECTED_KEYS)
+          @attributes = attributes.except(*PROTECTED_KEYS).with_indifferent_access
 
           # Prepare field types; should be called first to enable coercion of all other attributes
           @attributes['@fieldTypes'] = FieldType.call( attributes['@fieldTypes'] )
@@ -42,14 +42,16 @@ module Orientdb
           super(attributes.except(*PROTECTED_KEYS))
         end
 
-        delegate :persisted?, to: :_rid
+        def persisted?
+          self._rid.try(:persisted?) || false
+        end
 
         def _rid
           @attributes['@rid']
         end
 
         def _class
-          @attributes['@class']
+          @attributes['@class'] || self.class.name.demodulize
         end
 
         def _type

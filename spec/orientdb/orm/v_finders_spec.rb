@@ -13,7 +13,7 @@ describe Orientdb::ORM::Finders, :with_database do
         
         context 'with RID' do
           it 'returns an array of objects' do
-            expect( described_class.where(query) ).to be_an(Array)
+            expect( described_class.where(query) ).to be_an(Orientdb::ORM::Queries::Result)
           end
           
           it 'returns only one object' do
@@ -29,7 +29,7 @@ describe Orientdb::ORM::Finders, :with_database do
           let(:query) { {'name' => 'admin'} }
           
           it 'returns an array of objects' do
-            expect( described_class.where(query) ).to be_an(Array)
+            expect( described_class.where(query) ).to be_an(Orientdb::ORM::Queries::Result)
           end
           
           it 'returns only one objects' do

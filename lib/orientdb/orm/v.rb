@@ -1,7 +1,7 @@
 module Orientdb
   module ORM
     class V
-      include Document
+      include Vertex
     end
   end
 end

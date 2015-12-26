@@ -1,7 +1,7 @@
 module Orientdb
   module ORM
     class E
-      include Document
+      include Edge
     end
   end
 end
