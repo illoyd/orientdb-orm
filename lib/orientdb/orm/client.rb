@@ -2,8 +2,14 @@ module Orientdb
   module ORM
 
     class Client
+      extend ActiveModel::Callbacks
 
       attr_reader :connection_url
+      
+      define_model_callbacks :connect, :disconnect, :query, :command
+      
+      before_query :ensure_connected
+      before_command :ensure_connected
 
       def initialize(conn_url = nil)
         @connection_url = URI(conn_url || Orientdb::ORM.default_connection_url)
@@ -14,12 +20,17 @@ module Orientdb
       end
       
       def connect
-        client.connect(connect_options)
+        run_callbacks :connect do
+          client.connect(connect_options)
+          client
+        end
       end
       
       def disconnect
-        @client.disconnect if connected?
-        @client = nil
+        run_callbacks :disconnect do
+          @client.disconnect if connected?
+          @client = nil
+        end
       end
       
       def connected?
@@ -27,13 +38,15 @@ module Orientdb
       end
       
       def query(*params)
-        connect unless connected?
-        client.query(*params)
+        run_callbacks :query do
+          client.query(*params)
+        end
       end
       
       def command(*params)
-        connect unless connected?
-        client.command(*params)
+        run_callbacks :command do
+          client.command(*params)
+        end
       end
       
       protected
@@ -52,6 +65,10 @@ module Orientdb
           user:     @connection_url.user,
           password: @connection_url.password
         }
+      end
+      
+      def ensure_connected
+        connect unless connected?
       end
 
     end
