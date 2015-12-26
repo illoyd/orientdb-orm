@@ -18,14 +18,14 @@ end
 
 # Configure OrientDB
 require 'orientdb4r'
-Orientdb4r::logger.level = 2
+Orientdb4r::logger.level = Logger::FATAL
 
 # Load gem
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'orientdb/orm'
 
-# Test for a database path - if not set, fail immediately
-raise Orientdb::ORM::InvalidConnectionUrlError, "Missing connection string: Assign DATABASE_URL environment variable. (Found: #{ Orientdb::ORM.connection_url })" unless Orientdb::ORM.connection_url
-
 # Require all helpers
 Dir.glob('./spec/spec_support/**.rb').each { |file| require file }
+
+# Test for a database path - if not set, fail immediately
+raise Orientdb::ORM::InvalidConnectionUrlError, "Missing connection string: Assign DATABASE_URL environment variable. (Given: #{ Orientdb::ORM.connection_url })" unless Orientdb::ORM.connection_url

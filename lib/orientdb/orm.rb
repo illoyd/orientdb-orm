@@ -5,6 +5,7 @@ require 'active_support'
 require 'active_support/core_ext'
 require 'orientdb4r'
 require 'connection_pool'
+require 'logger'
 
 module Orientdb
   module ORM
@@ -40,9 +41,17 @@ module Orientdb
     def self.default_connection_url
       ( ENV[ ENV['DATABASE_PROVIDER'] || 'DATABASE_URL' ] )
     end
+    
+    class << self
+      attr_accessor :logger
+    end
 
   end
 end
+
+# Configuration of logging.
+Orientdb::ORM::logger = Logger.new(STDOUT)
+Orientdb::ORM::logger.level = Logger::INFO
 
 require 'uri/orientdb'
 
