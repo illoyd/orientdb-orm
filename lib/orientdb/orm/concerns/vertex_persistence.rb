@@ -6,19 +6,9 @@ module Orientdb
       included do
         
         def create
-          params = createable_attributes.map{ |k,v| "#{ k } = #{ self.class.sanitize_parameter(v) }"}.join(", ")
-          
-          query = "CREATE VERTEX #{ _class } SET #{ params }"
-          #puts "Query: #{ query }"
-          
-          response = Orientdb::ORM.with { |client| client.command(query) }
-          # puts "Create: #{ response }"
-
-          update_attributes(response['result'].first)
-        end
-        
-        def createable_attributes
-          attributes.except(*Orientdb::ORM::Document::PROTECTED_KEYS)
+          results = Orientdb::ORM::Queries::CreateVertex.new.vertex(self._class).set(self.attributes).execute
+          update_attributes(results.first.attributes)
+          true
         end
         
         def update
