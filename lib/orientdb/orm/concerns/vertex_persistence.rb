@@ -8,7 +8,6 @@ module Orientdb
         def create
           results = Orientdb::ORM::Queries::CreateVertex.new.vertex(self._class).set(self.attributes).execute
           update_attributes(results.first.attributes)
-          true
         end
 
         def update

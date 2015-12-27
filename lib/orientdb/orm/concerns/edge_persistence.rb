@@ -6,22 +6,10 @@ module Orientdb
       included do
         
         def create
-          create_params = createable_attributes.keys.join(', ')
-          create_values = createable_attributes.values.map { |v| self.class.sanitize_parameter(v) }.join(', ')
-          
-          query = "CREATE EDGE #{ _class } FROM #{ self.in._rid.to_s } TO #{ self.out._rid.to_s }"
-          #puts "Query: #{ query }"
-          
-          response = Orientdb::ORM.with { |client| client.command(query) }
-          # puts "Create: #{ response }"
+          response = Orientdb::ORM::Queries::CreateEdge.new(self).execute
+          update_attributes(response.first.attributes)
+        end
 
-          update_attributes(response['result'].first)
-        end
-        
-        def createable_attributes
-          attributes.except(*Orientdb::ORM::Document::PROTECTED_KEYS)
-        end
-        
         def update
           params = updateable_attributes.map{ |k,v| "#{ k } = #{ self.class.sanitize_parameter(v) }"}.join(", ")
           
