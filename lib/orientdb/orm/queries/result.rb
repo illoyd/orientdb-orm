@@ -33,12 +33,17 @@ module Orientdb
         protected
         
         def coerce(index)
-          klass = class_for(@raw_results[index]['@class'])
-          klass.new(@raw_results[index])
+          if @raw_results[index]['@class'].present?
+            klass = class_for(@raw_results[index]['@class'])
+            klass.new(@raw_results[index])
+          else
+            @raw_results[index]
+          end
         end
         
         def class_for(klass)
-          klass.constantize
+          # klass.constantize
+          eval(klass)
         end
 
       end
