@@ -67,6 +67,10 @@ module Orientdb
         def _version
           @attributes['@version']
         end
+        
+        def custom_attributes
+          @attributes.except(*PROTECTED_KEYS)
+        end
 
         def attribute(attr)
           @attributes[attr]
