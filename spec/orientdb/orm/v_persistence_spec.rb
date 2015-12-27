@@ -28,11 +28,20 @@ describe Orientdb::ORM::Persistence, :with_database do
       describe '.save' do
         
         it 'succeeds' do
+          subject.name = 'Another test'
           expect{ subject.save }.not_to raise_error
         end
 
         it 'is persisted' do
+          subject.name = 'Another test'
           expect{ subject.save }.not_to change(subject, :persisted?).from(true)
+        end
+        
+        it 'changes name value' do
+          expect( subject.name ).to eq('Test')
+          subject.name = 'Another test'
+          subject.save
+          expect( subject.name ).to eq('Another test')
         end
 
       end

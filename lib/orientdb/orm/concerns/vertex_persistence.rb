@@ -10,23 +10,12 @@ module Orientdb
           update_attributes(results.first.attributes)
           true
         end
-        
-        def update
-          params = updateable_attributes.map{ |k,v| "#{ k } = #{ self.class.sanitize_parameter(v) }"}.join(", ")
-          
-          query = "UPDATE #{ _rid } SET #{ params }"
-          #puts "Query: #{ query }"
-          
-          response = Orientdb::ORM.with { |client| client.command(query) }
-          #puts "Update: #{ response }"
 
-          update_attributes(response['result'].first)
+        def update
+          results = Orientdb::ORM::Queries::UpdateVertex.new.vertex(self._rid).set(self.attributes).execute
+          results.first['value'] == 1
         end
-        
-        def updateable_attributes
-          attributes.except('@class', '@rid', '@type', '@fieldTypes', '@version')
-        end
-        
+
       end # included
       
       class_methods do
