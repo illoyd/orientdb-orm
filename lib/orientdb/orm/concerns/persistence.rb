@@ -5,8 +5,12 @@ module Orientdb
 
       included do
         
+        define_model_callbacks :save, :create, :update
+
         def save
-          create_or_update if valid?
+          run_callbacks :save do
+            create_or_update if valid?
+          end
         end
         
         def update_attributes(params)

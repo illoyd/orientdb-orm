@@ -43,6 +43,9 @@ module Orientdb
         
         def class_for(klass)
           # klass.constantize
+          if Orientdb::ORM.object_namespace.present?
+            klass = "#{ Orientdb::ORM.object_namespace }::#{ klass }"
+          end
           eval(klass)
         end
 

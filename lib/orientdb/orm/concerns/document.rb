@@ -2,6 +2,8 @@ module Orientdb
   module ORM
     module Document
       extend ActiveSupport::Concern
+      extend ActiveModel::Callbacks
+
       include ActiveModel::Model
       include ActiveModel::AttributeMethods
       

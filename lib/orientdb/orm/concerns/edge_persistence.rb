@@ -6,20 +6,24 @@ module Orientdb
       included do
         
         def create
-          response = Orientdb::ORM::Queries::CreateEdge.new(self).execute
-          update_attributes(response.first.attributes)
+          run_callbacks :create do
+            response = Orientdb::ORM::Queries::CreateEdge.new(self).execute
+            update_attributes(response.first.attributes)
+          end
         end
 
         def update
-          params = updateable_attributes.map{ |k,v| "#{ k } = #{ self.class.sanitize_parameter(v) }"}.join(", ")
-          
-          query = "UPDATE EDGE #{ _rid } SET #{ params }"
-          #puts "Query: #{ query }"
-          
-          response = Orientdb::ORM.with { |client| client.command(query) }
-          #puts "Update: #{ response }"
-
-          update_attributes(response['result'].first)
+          run_callbacks :update do
+            params = updateable_attributes.map{ |k,v| "#{ k } = #{ self.class.sanitize_parameter(v) }"}.join(", ")
+            
+            query = "UPDATE EDGE #{ _rid } SET #{ params }"
+            #puts "Query: #{ query }"
+            
+            response = Orientdb::ORM.with { |client| client.command(query) }
+            #puts "Update: #{ response }"
+  
+            update_attributes(response['result'].first)
+          end
         end
         
         def updateable_attributes

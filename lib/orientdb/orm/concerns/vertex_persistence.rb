@@ -6,13 +6,17 @@ module Orientdb
       included do
         
         def create
-          results = Orientdb::ORM::Queries::CreateVertex.new.vertex(self._class).set(self.attributes).execute
-          update_attributes(results.first.attributes)
+          run_callbacks :create do
+            results = Orientdb::ORM::Queries::CreateVertex.new.vertex(self._class).set(self.attributes).execute
+            update_attributes(results.first.attributes)
+          end
         end
 
         def update
-          results = Orientdb::ORM::Queries::UpdateVertex.new.vertex(self._rid).set(self.attributes).execute
-          results.first['value'] == 1
+          run_callbacks :update do
+            results = Orientdb::ORM::Queries::UpdateVertex.new.vertex(self._rid).set(self.attributes).execute
+            results.first['value'] == 1
+          end
         end
 
       end # included
