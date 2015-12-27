@@ -42,6 +42,14 @@ module Orientdb
       ( ENV[ ENV['DATABASE_PROVIDER'] || 'DATABASE_URL' ] )
     end
     
+    def self.object_namespace
+      @namespace
+    end
+    
+    def self.object_namespace=(value)
+      @namespace = value
+    end
+    
     class << self
       attr_accessor :logger
     end
