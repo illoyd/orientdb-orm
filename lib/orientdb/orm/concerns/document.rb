@@ -21,7 +21,7 @@ module Orientdb
         attribute_method_suffix '?'
         attribute_method_suffix '='
         #define_attribute_methods
-
+        
         PROTECTED_KEYS = %w( @rid @class @type @fieldTypes @version )
 
         def initialize(attributes={})
@@ -38,6 +38,9 @@ module Orientdb
           self['@class']      = attributes['@class'] || self.class.name.demodulize
           self['@type']       = attributes['@type']
           self['@version']    = attributes['@version']
+
+          # TODO: Hack to implement default attributes. Can we move?
+          ensure_default_attributes
 
           # Assign all other attributes
           super(attributes.except(*PROTECTED_KEYS))

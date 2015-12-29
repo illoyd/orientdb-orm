@@ -4,12 +4,12 @@ module Orientdb
       extend ActiveSupport::Concern
 
       included do
+        
+        protected
 
-        def initialize(*params)
-          super
-          
+        def ensure_default_attributes(*params)
           # Merge attributes into object
-          self.class.attributes.each do |_,attr|
+          self.class.attribute_definitions.values.each do |attr|
             # Configure field type
             self._field_types[attr.name] ||= attr.field_type
             
@@ -22,20 +22,20 @@ module Orientdb
 
       class_methods do
 
-        def attributes
+        def attribute_definitions
           @@attributes       ||= {}
           @@attributes[self] ||= {}
         end
         
-        def attribute(name, field_type, default = nil, validates_options = {})
-          attr = Attribute.new(name, field_type, default, validates_options)
+        def attribute(name, field_type, options = {})
+          attr = AttributeDefinition.new(name, field_type, options)
 
           # Save attribute for later reference
-          self.attributes[attr.name] = attr
+          attribute_definitions[attr.name] = attr
           
           # Configure validations
           if attr.validates_options.any?
-            validates attr.name, attr.validates_options
+            validates attr.accessor, attr.validates_options
           end
         end
         
