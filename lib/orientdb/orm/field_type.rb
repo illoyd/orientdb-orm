@@ -26,7 +26,7 @@ module ORM
     # Coerce a given value by the specified key.
     # If it cannot be coerced, the original value is returned.
     def coerce(key, value)
-      self[key].try(:call, value) || value
+      self[key].try(:call, value) || value.presence || nil
     end
 
     ##

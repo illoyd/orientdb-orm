@@ -9,6 +9,7 @@ module Orientdb
           run_callbacks :create do
             results = Orientdb::ORM::Queries::CreateVertex.new.vertex(self._class).set(self.attributes).execute
             update_attributes(results.first.attributes)
+            persisted?
           end
         end
 
