@@ -38,7 +38,8 @@ module Orientdb
       class_methods do
 
         def attributes
-          @@attributes ||= {}
+          @@attributes       ||= {}
+          @@attributes[self] ||= {}
         end
         
         def attribute(name, field_type, default = nil, validates_options = {})
