@@ -7,6 +7,7 @@ module Orientdb
       include ActiveModel::Model
       include ActiveModel::AttributeMethods
       
+      include Orientdb::ORM::DefaultAttributes
       include Orientdb::ORM::Finders
       include Orientdb::ORM::Persistence
 
