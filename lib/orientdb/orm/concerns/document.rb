@@ -23,8 +23,6 @@ module Orientdb
         #define_attribute_methods
 
         PROTECTED_KEYS = %w( @rid @class @type @fieldTypes @version )
-        DOCUMENT_TYPE  = 'd'
-        EDGE_TYPE      = 'e'
 
         def initialize(attributes={})
           attributes ||= {}
@@ -38,7 +36,7 @@ module Orientdb
           # Assign remaining protected attributes
           self['@rid']        = attributes['@rid']
           self['@class']      = attributes['@class'] || self.class.name.demodulize
-          self['@type']       = attributes['@type'] || DOCUMENT_TYPE
+          self['@type']       = attributes['@type']
           self['@version']    = attributes['@version']
 
           # Assign all other attributes

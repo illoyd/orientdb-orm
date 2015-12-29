@@ -16,7 +16,7 @@ describe Orientdb::ORM::V do
 
       its('_rid')         { should eq('#-1:-1') }
       its('_class')       { should eq('V') }
-      its('_type')        { should eq(Orientdb::ORM::Document::DOCUMENT_TYPE) }
+      its('_type')        { should be_nil }
       its('_version')     { should be_nil }
       its('_field_types') { should be_a(Orientdb::ORM::FieldType) }
 
