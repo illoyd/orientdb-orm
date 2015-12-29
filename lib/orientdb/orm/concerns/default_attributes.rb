@@ -10,7 +10,7 @@ module Orientdb
         attr_accessor :name, :field_type, :default, :validates_options
         
         def initialize(name, field_type, default = nil, validates_options = {})
-          @name = name
+          @name = name.to_s
           @field_type = field_type
           @default = default
           @validates_options = validates_options
@@ -42,11 +42,15 @@ module Orientdb
         end
         
         def attribute(name, field_type, default = nil, validates_options = {})
+          attr = Attribute.new(name, field_type, default, validates_options)
+
           # Save attribute for later reference
-          self.attributes[name] = Attribute.new(name, field_type, default, validates_options)
+          self.attributes[attr.name] = attr
           
           # Configure validations
-          validates name, validates_options
+          if attr.validates_options.any?
+            validates attr.name, attr.validates_options
+          end
         end
         
       end # class_methods
