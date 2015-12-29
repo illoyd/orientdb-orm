@@ -2,21 +2,6 @@ module Orientdb
   module ORM
     module DefaultAttributes
       extend ActiveSupport::Concern
-      
-      
-      ##
-      # TODO: Convert to a struct
-      class Attribute
-        attr_accessor :name, :field_type, :default, :validates_options
-        
-        def initialize(name, field_type, default = nil, validates_options = {})
-          @name              = name.to_s
-          @field_type        = field_type
-          @default           = default
-          @validates_options = validates_options || {}
-        end
-      end
-
 
       included do
 
