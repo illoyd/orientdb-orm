@@ -5,11 +5,14 @@ module Orientdb
 
       included do
         
-        define_model_callbacks :save, :create, :update
+        define_model_callbacks :validation, :save, :create, :update
 
         def save
+          run_callbacks :validation do
+            return false unless valid?
+          end
           run_callbacks :save do
-            create_or_update if valid?
+            create_or_update
           end
         end
         
@@ -18,6 +21,8 @@ module Orientdb
             self[attr] = value
           end
         end
+        
+        protected
         
         def create_or_update
           persisted? ? update : create

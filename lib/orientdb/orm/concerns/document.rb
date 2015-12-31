@@ -23,6 +23,7 @@ module Orientdb
         #define_attribute_methods
         
         PROTECTED_KEYS = %w( @rid @class @type @fieldTypes @version )
+        EDGE_ATTRIBUTE_REGEX = /^(in|out)_.+$/
 
         def initialize(attributes={})
           attributes ||= {}
@@ -72,6 +73,14 @@ module Orientdb
         
         def custom_attributes
           @attributes.except(*PROTECTED_KEYS)
+        end
+
+        def document_attributes
+          custom_attributes.reject { |k,_| EDGE_ATTRIBUTE_REGEX.match(k) }
+        end
+
+        def edge_attributes
+          custom_attributes.select { |k,_| EDGE_ATTRIBUTE_REGEX.match(k) }
         end
 
         def attribute(attr)

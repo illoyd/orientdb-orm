@@ -22,16 +22,20 @@ module Orientdb
 
       class_methods do
 
-        def attribute_definitions
+        def attribute_definitions_for(key)
           @@attributes       ||= {}
-          @@attributes[self] ||= {}
+          @@attributes[key] ||= {}
+        end
+        
+        def attribute_definitions
+          ancestors.each_with_object({}) { |klass,h| h.merge!(attribute_definitions_for(klass)) }
         end
         
         def attribute(name, field_type, options = {})
           attr = AttributeDefinition.new(name, field_type, options)
 
           # Save attribute for later reference
-          attribute_definitions[attr.name] = attr
+          attribute_definitions_for(self)[attr.name] = attr
           
           # Configure validations
           if attr.validates_options.any?

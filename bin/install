@@ -1,0 +1,1 @@
+gem build orientdb-orm.gemspec && gem install orientdb-orm-0.1.0.gem

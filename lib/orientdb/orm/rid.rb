@@ -35,13 +35,13 @@ module Orientdb
       def to_s
         "##{ @collection || 'NIL' }:#{ @position || 'NIL' }"
       end
-  
+
       ##
       # Convert to the string RID, without the preceeding #.
-      def to_short_s
-        "#{ @collection || 'NIL' }:#{ @position || 'NIL' }"
+      def to_param
+        persisted? ? "#{ @collection }:#{ @position }" : nil
       end
-  
+      
       ##
       # Pretty print this object.
       def inspect

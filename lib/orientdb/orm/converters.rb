@@ -4,8 +4,8 @@ module Orientdb
     DecimalConverter  = ->(value){ Decimal.new(value) }
     IntegerConverter  = ->(value){ Integer(value) rescue nil }
     SetConverter      = ->(value){ Set.new(value) rescue Set.new }
-    DateConverter     = ->(value){ Date.parse(value) }
-    DateTimeConverter = ->(value){ DateTime.parse(value) }
+    DateConverter     = ->(value){ Date.parse(value) rescue nil }
+    DateTimeConverter = ->(value){ DateTime.parse(value) rescue nil }
     BooleanConverter  = ->(value){ value == true || (value.to_s =~ /^(true|t|yes|y|1)$/i).present? }
   
     LinkListCoercer   = ->(value){ value.map{ |rid| RID.call(rid) } }

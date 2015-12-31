@@ -5,6 +5,10 @@ module Orientdb
       class Base
         
         def self.sanitize_parameter(param)
+          # Short-circuit if object can convert self to a parameter entry
+          # return param.to_param if param.respond_to?(:to_param)
+
+          # Otherwise, perform conversion internally
           case param
             
           # Do not escape certain key value types
