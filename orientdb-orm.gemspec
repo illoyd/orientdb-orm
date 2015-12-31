@@ -27,17 +27,17 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
   
-  spec.add_dependency "activemodel"
-  spec.add_dependency "activesupport"
-  spec.add_dependency "connection_pool"
-  spec.add_dependency "orientdb4r"
+  spec.add_dependency "activemodel", "~> 4.2"
+  spec.add_dependency "activesupport", "~> 4.2"
+  spec.add_dependency "connection_pool", "~> 2.2"
+  spec.add_dependency "orientdb4r", "~> 0.5"
 
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "rspec-its"
-  spec.add_development_dependency "simplecov"
-  spec.add_development_dependency "guard"
-  spec.add_development_dependency "guard-rspec"
-  spec.add_development_dependency "fuubar"
+  spec.add_development_dependency "rspec", "~> 3.4"
+  spec.add_development_dependency "rspec-its", "~> 1.2"
+  spec.add_development_dependency "simplecov", "~> 0.11"
+  spec.add_development_dependency "guard", "~> 2.13"
+  spec.add_development_dependency "guard-rspec", "~> 4.6"
+  spec.add_development_dependency "fuubar", "~> 2.0"
 end
