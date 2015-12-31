@@ -9,7 +9,7 @@ describe Orientdb::ORM::RID do
     its('persisted?') { should be true }
     its('valid?')     { should be true }
     its('to_s')       { should eq('#1:0') }
-    its('to_short_s') { should eq('1:0') }
+    its('to_param')   { should eq('1:0') }
 
     it 'equals #1:0' do
       expect( subject ).to eq('#1:0')
