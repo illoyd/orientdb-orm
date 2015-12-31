@@ -23,6 +23,14 @@ module Orientdb
           when Orientdb::ORM::RID
             param.to_s
           
+          # Sanitize hashes
+          when Hash
+            param.each_with_object({}) { |(k,v),h| h[k] = sanitize_parameter(v) }
+          
+          # Sanitize arrays and sets
+          when Array, Set
+            param.map { |v| sanitize_parameter(v) }
+          
           # Otherwise, escape!
           else
             "\"#{ param.to_s.gsub('"', '\"') }\""

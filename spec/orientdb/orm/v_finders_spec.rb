@@ -93,32 +93,7 @@ describe Orientdb::ORM::Finders, :with_database do
       end
   
     end #.find_by_id
-    
-    describe '.sanitize_parameter' do
-      
-      it 'wraps a string in quotes' do
-        expect( described_class.sanitize_parameter('string') ).to eq('"string"')
-      end
 
-      it 'wraps a string in quotes and ignores single quotes' do
-        expect( described_class.sanitize_parameter('str\'ing') ).to eq('"str\'ing"')
-      end
-
-      it 'wraps a string in quotes and escapes double quotes' do
-        expect( described_class.sanitize_parameter('string "another" string') ).to eq('"string \"another\" string"')
-      end
-
-      it 'does not wrap a RID' do
-        rid = Orientdb::ORM::RID.new( 2, 3 )
-        expect( described_class.sanitize_parameter(rid) ).to eq('#2:3')
-      end
-
-      it 'converts nil to NULL' do
-        expect( described_class.sanitize_parameter(nil) ).to eq('NULL')
-      end
-
-    end
-  
   end
 
 end
