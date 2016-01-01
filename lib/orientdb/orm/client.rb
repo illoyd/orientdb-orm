@@ -21,7 +21,7 @@ module Orientdb
       
       def connect
         run_callbacks :connect do
-          client.connect(connect_options)
+          client.connect(connect_options) unless connected?
           client
         end
       end
