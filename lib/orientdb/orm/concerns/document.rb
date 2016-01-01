@@ -6,10 +6,14 @@ module Orientdb
 
       include ActiveModel::Model
       include ActiveModel::AttributeMethods
+      include ActiveModel::Dirty
       
       include Orientdb::ORM::DefaultAttributes
       include Orientdb::ORM::Finders
       include Orientdb::ORM::Persistence
+
+      PROTECTED_KEYS = %w( @rid @class @type @fieldTypes @version )
+      EDGE_ATTRIBUTE_REGEX = /^(in|out)_.+$/
 
       included do
         validates_presence_of :_rid, :_class
@@ -22,9 +26,6 @@ module Orientdb
         attribute_method_suffix '='
         #define_attribute_methods
         
-        PROTECTED_KEYS = %w( @rid @class @type @fieldTypes @version )
-        EDGE_ATTRIBUTE_REGEX = /^(in|out)_.+$/
-
         def initialize(attributes={})
           attributes ||= {}
 
@@ -45,6 +46,9 @@ module Orientdb
 
           # Assign all other attributes
           super(attributes.except(*PROTECTED_KEYS))
+          
+          # Accept all changes
+          changes_applied
         end
         
         def to_param
@@ -94,7 +98,14 @@ module Orientdb
         alias :[] :attribute
 
         def attribute=(attr, value)
-          @attributes[attr] = coerce_attribute(attr, value)
+          # Coerce attribute
+          value = coerce_attribute(attr, value)
+
+          # If changing, assign
+          if value != @attributes[attr]
+            attribute_will_change!(attr)
+            @attributes[attr] = value
+          end
         end
 
         alias :[]= :attribute=
