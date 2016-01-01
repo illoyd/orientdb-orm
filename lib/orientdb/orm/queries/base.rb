@@ -7,6 +7,9 @@ module Orientdb
         def self.sanitize_parameter(param)
           # Short-circuit if object can convert self to a parameter entry
           # return param.to_param if param.respond_to?(:to_param)
+          
+          # Short-circuit with _rid check
+          return param._rid.to_s if param.respond_to?(:_rid)
 
           # Otherwise, perform conversion internally
           case param
