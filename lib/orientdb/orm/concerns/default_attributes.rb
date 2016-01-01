@@ -38,7 +38,7 @@ module Orientdb
           attribute_definitions_for(self)[attr.name] = attr
           
           # Configure validations
-          if attr.validates_options.any?
+          if attr.validates_options.try(:any?)
             validates attr.accessor, attr.validates_options
           end
         end
