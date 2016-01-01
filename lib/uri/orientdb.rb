@@ -5,11 +5,12 @@ module URI
     DEFAULT_PORT = 2480
     
     def database
-      path[0] == '/' ? path[1..-1] : path
+      return nil unless self.path.present?
+      self.path[0] == '/' ? self.path[1..-1] : self.path
     end
     
     def database=(value)
-      path = "/#{value}"
+      self.path = value.present? ? "/#{ value }" : ''
     end
     
     def ssl?
