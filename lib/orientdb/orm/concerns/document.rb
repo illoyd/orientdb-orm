@@ -46,6 +46,10 @@ module Orientdb
           # Assign all other attributes
           super(attributes.except(*PROTECTED_KEYS))
         end
+        
+        def to_param
+          self._rid.try(:to_param)
+        end
 
         def persisted?
           self._rid.try(:persisted?) || false
