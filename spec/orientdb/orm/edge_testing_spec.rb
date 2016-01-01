@@ -19,13 +19,13 @@ describe 'Edge Detection', :with_database do
     
     v1a = ExampleVertex.find_by(label: 'V1')
     expect( v1a ).not_to be_nil
-    expect( v1a['out_ExampleEdge'].first ).to eq(e1._rid)
-    expect( v1a['in_ExampleEdge'] ).to be_nil
+    expect( v1a['in_ExampleEdge'].first ).to eq(e1._rid)
+    expect( v1a['out_ExampleEdge'] ).to be_nil
     
     v2a = ExampleVertex.find_by(label: 'V2')
     expect( v2a ).not_to be_nil
-    expect( v2a['in_ExampleEdge'].first ).to eq(e1._rid)
-    expect( v2a['out_ExampleEdge'] ).to be_nil
+    expect( v2a['out_ExampleEdge'].first ).to eq(e1._rid)
+    expect( v2a['in_ExampleEdge'] ).to be_nil
   end
 
 end

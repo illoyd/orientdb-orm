@@ -83,8 +83,8 @@ module Orientdb
           elsif params.respond_to?(:attributes)
             {
               edge:   params,
-              to:     params.out,
-              from:   params.in,
+              to:     params.in,
+              from:   params.out,
               set:    params.attributes
             }
           else
