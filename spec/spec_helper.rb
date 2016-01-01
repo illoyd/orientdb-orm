@@ -1,9 +1,8 @@
 require 'simplecov'
 SimpleCov.start do
-#   add_filter '/spec/'
-#   add_group 'Models',  '/models/'
-#   add_group 'DB',      '/models/db'
-#   add_group 'Queries', '/queries'
+  add_filter '/spec/'
+  add_group 'ORM',      '/lib/orientdb/orm'
+  add_group 'Queries',  '/lib/orientdb/orm/queries'
 end
 
 # Include Rspec and related
