@@ -50,15 +50,18 @@ module Orientdb
       @@namespace = value
     end
     
-    class << self
-      attr_accessor :logger
+    def self.logger
+      @@logger ||= Logger.new(STDOUT)
+    end
+    
+    def self.logger=(value)
+      @@logger = value
     end
 
   end
 end
 
 # Configuration of logging.
-Orientdb::ORM::logger = Logger.new(STDOUT)
 Orientdb::ORM::logger.level = Logger::INFO
 
 require 'uri/orientdb'
