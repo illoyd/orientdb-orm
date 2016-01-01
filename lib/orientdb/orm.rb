@@ -43,11 +43,11 @@ module Orientdb
     end
     
     def self.object_namespace
-      @namespace
+      @@namespace ||= nil
     end
     
     def self.object_namespace=(value)
-      @namespace = value
+      @@namespace = value
     end
     
     class << self
