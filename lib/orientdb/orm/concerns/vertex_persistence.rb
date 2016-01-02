@@ -9,13 +9,15 @@ module Orientdb
           run_callbacks :create do
             results = Orientdb::ORM::Queries::CreateVertex.new.vertex(self._class).set(self.attributes).execute
             update_attributes(results.first.attributes)
-            persisted?
+            changes_applied
+            persisted?            
           end
         end
 
         def update
           run_callbacks :update do
             results = Orientdb::ORM::Queries::UpdateVertex.new.vertex(self._rid).set(self.attributes).execute
+            changes_applied
             results.first['value'] == 1
           end
         end

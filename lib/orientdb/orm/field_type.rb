@@ -2,8 +2,11 @@ module Orientdb
 module ORM
   class FieldType
 
+    ##
+    # Field types
     attr_reader :field_types
-    delegate :[]=, :merge, :merge!, to: :field_types
+    
+    delegate :[]=, to: :field_types
 
     ##
     # Create a new FieldType.
@@ -14,6 +17,11 @@ module ORM
     
     def self.default_field_types
       { '@rid' => RID, '@fieldTypes' => FieldType }
+    end
+    
+    def merge!(other)
+      other = @field_types.field_types if other === FieldType   
+      @field_types.merge!(other)
     end
 
     ##
@@ -33,28 +41,30 @@ module ORM
     # Map
     def [](key)
       case @field_types[key].try(:strip)
-      when 'f' # for float
+      when FloatType # for float
         FloatConverter
-      when 'b' # for boolean
-        BooleanConverter
-      when 'c' # for decimal
+
+#       when 'b' # for boolean
+#         BooleanConverter
+
+      when DecimalType # for decimal
         DecimalConverter
-      when 's', 'l', 'd' # for short, long, double
+      when ShortType, LongType, DoubleType # for short, long, double
         IntegerConverter
 
 #         when 'b' # for byte and binary
 
-      when 'a' # for date
+      when DateType
         DateConverter
-      when 't' # for datetime
+      when DateTimeType
         DateTimeConverter
-      when 'e' # for Set
+      when SetType
         SetConverter
-      when 'x' # for links
+      when LinkType
         RID
-      when 'n' # for linksets
+      when LinkSetType
         LinkSetCoercer
-      when 'z', 'g' # for linklist, linkbag
+      when LinkListType, LinkBagType
         LinkListCoercer
 
 #         when 'm' # for linkmap
@@ -72,6 +82,8 @@ module ORM
         parse(value)
       when Hash
         new(value)
+      when FieldType
+        value
       else
         new()
       end

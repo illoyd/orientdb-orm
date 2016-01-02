@@ -8,6 +8,7 @@ module Orientdb
       include ActiveModel::AttributeMethods
       include ActiveModel::Dirty
       
+      include Orientdb::ORM::Attributes
       include Orientdb::ORM::DefaultAttributes
       include Orientdb::ORM::Finders
       include Orientdb::ORM::Persistence
@@ -16,7 +17,7 @@ module Orientdb
       EDGE_ATTRIBUTE_REGEX = /^(in|out)_.+$/
 
       included do
-        validates_presence_of :_rid, :_class
+        validates_presence_of :_class
 
         attr_reader :attributes
 
@@ -62,6 +63,8 @@ module Orientdb
         def _rid
           @attributes['@rid']
         end
+        
+        alias :id :_rid
 
         def _class
           @attributes['@class'] || self.class.name.demodulize
@@ -80,7 +83,7 @@ module Orientdb
         end
         
         def custom_attributes
-          @attributes.except(*PROTECTED_KEYS)
+          attributes.except(*PROTECTED_KEYS)
         end
 
         def document_attributes
@@ -102,7 +105,8 @@ module Orientdb
           value = coerce_attribute(attr, value)
 
           # If changing, assign
-          if value != @attributes[attr]
+          unless value.eql? attribute(attr)
+            puts "changing #{ attr } from #{ @attributes[attr] } to #{ value }"
             attribute_will_change!(attr)
             @attributes[attr] = value
           end
@@ -111,7 +115,7 @@ module Orientdb
         alias :[]= :attribute=
 
         def attribute?(attr)
-          @attributes[attr].present?
+          attribute(attr).present?
         end
 
         alias :include? :attribute?

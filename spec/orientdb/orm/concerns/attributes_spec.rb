@@ -1,6 +1,6 @@
 require './spec/spec_helper.rb'
 
-fdescribe Orientdb::ORM::Document do
+describe Orientdb::ORM::Document do
   let(:old_name) { 'Old' }
   let(:new_name) { 'New' }
   subject { ExampleVertex.new(name: old_name) }

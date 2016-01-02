@@ -72,14 +72,15 @@ module Orientdb
       end
       
       ##
-      # TODO Replace with <=> function.
+      # Equals other if other is a RID or can be cast into a RID
       def ==(other)
-        return case other
-        when RID
-          collection == other.collection && position == other.position
-        else
-          self == RID.call(other)
-        end
+        self.eql?(other) || self == self.class.call(other)
+      end
+      
+      ##
+      # Strictly requires other to be a RID
+      def eql?(other)
+        other.is_a?(RID) && collection == other.collection && position == other.position
       end
 
     end

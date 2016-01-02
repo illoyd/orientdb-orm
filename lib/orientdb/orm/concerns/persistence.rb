@@ -16,12 +16,6 @@ module Orientdb
           end
         end
         
-        def update_attributes(params)
-          params.each do |attr, value|
-            self[attr] = value
-          end
-        end
-        
         protected
         
         def create_or_update

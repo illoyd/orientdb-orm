@@ -66,6 +66,7 @@ Orientdb::ORM::logger.level = Logger::INFO
 
 require 'uri/orientdb'
 
+require 'orientdb/orm/constants'
 require 'orientdb/orm/errors'
 require 'orientdb/orm/converters'
 require 'orientdb/orm/rid'
@@ -74,6 +75,7 @@ require 'orientdb/orm/attribute_definition'
 require 'orientdb/orm/concerns/finders'
 require 'orientdb/orm/concerns/persistence'
 require 'orientdb/orm/concerns/default_attributes'
+require 'orientdb/orm/concerns/attributes'
 require 'orientdb/orm/concerns/document'
 require 'orientdb/orm/concerns/vertex_persistence'
 require 'orientdb/orm/concerns/vertex'

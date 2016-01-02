@@ -6,6 +6,8 @@ module Orientdb
       include Orientdb::ORM::EdgePersistence
 
       included do
+        attribute :in,  Orientdb::ORM::LinkType, validations: { presence: true }
+        attribute :out, Orientdb::ORM::LinkType, validations: { presence: true }
       end # included
 
       class_methods do

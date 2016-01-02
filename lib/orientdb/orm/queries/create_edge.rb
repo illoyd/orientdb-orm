@@ -14,7 +14,6 @@ module Orientdb
         
         def execute(conn = nil)
           return Orientdb::ORM.with { |client| self.execute(client) } if conn.nil?
-          puts self.to_s
           Result.new( conn.command(self.to_s)['result'] )
 
           rescue Orientdb4r::NotFoundError
