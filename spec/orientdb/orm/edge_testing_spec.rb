@@ -2,7 +2,7 @@ require './spec/spec_helper.rb'
 
 describe 'Edge Detection', :with_database do
   
-  fit 'adds edge OUT attributes to vertices' do
+  it 'adds edge OUT attributes to vertices' do
     v1 = ExampleVertex.new( label: 'V1' )
     v2 = ExampleVertex.new( label: 'V2' )
     

@@ -51,6 +51,9 @@ module Orientdb
       ##
       # Coercion to a RID.
       def self.call(value)
+        # HACK: Fix me later - used for coercion to allow assigning an object directly to a query, in place of a RID.
+        return call(value._rid) if value.respond_to?(:_rid)
+        
         case value
         when RID
           value
@@ -73,8 +76,9 @@ module Orientdb
       
       ##
       # Equals other if other is a RID or can be cast into a RID
+      # HACK Fix the comparison logic here...
       def ==(other)
-        self.eql?(other) || self == self.class.call(other)
+        self.eql?(other) || ( !other.is_a?(RID) && self == self.class.call(other) )
       end
       
       ##

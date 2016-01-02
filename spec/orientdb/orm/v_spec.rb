@@ -12,10 +12,10 @@ describe Orientdb::ORM::V do
 
       it 'has default attributes' do
         # expect( subject.attributes.keys ).to match_array %w( @rid @class @type @fieldTypes @version )
-        expect( subject.attributes.keys ).to match_array %w( @class @fieldTypes )
+        expect( subject.attributes.keys ).to match_array %w( @rid @class @fieldTypes )
       end
 
-      its('_rid')         { should be_nil }
+      its('_rid')         { should eq Orientdb::ORM::RID.new(-1,-1) }
       its('_class')       { should eq('V') }
       its('_type')        { should be_nil }
       its('_version')     { should be_nil }

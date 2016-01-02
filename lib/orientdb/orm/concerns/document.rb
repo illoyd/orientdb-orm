@@ -31,7 +31,8 @@ module Orientdb
           attributes ||= {}
 
           # Initialise the attributes hash using unprotected attributes; this enables magic attributes assignment
-          @attributes = attributes.except(*PROTECTED_KEYS).with_indifferent_access
+          # @attributes = attributes.except(*PROTECTED_KEYS).with_indifferent_access
+          @attributes = attributes.keys.each_with_object(ActiveSupport::HashWithIndifferentAccess.new) { |k,h| h[k] = nil }
 
           # Prepare field types; should be called first to enable coercion of all other attributes
           @attributes['@fieldTypes'] = FieldType.call( attributes['@fieldTypes'] )
@@ -106,7 +107,6 @@ module Orientdb
 
           # If changing, assign
           unless value.eql? attribute(attr)
-            puts "changing #{ attr } from #{ @attributes[attr] } to #{ value }"
             attribute_will_change!(attr)
             @attributes[attr] = value
           end
