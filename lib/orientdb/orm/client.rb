@@ -4,7 +4,7 @@ module Orientdb
     class Client
       extend ActiveModel::Callbacks
 
-      attr_reader :connection_uri, :create_database_on_connect
+      attr_reader :connection_uri
 
       define_model_callbacks :connect, :disconnect, :query, :command
 
@@ -13,7 +13,7 @@ module Orientdb
       before_connect :ensure_database
 
       def initialize(conn_url = nil, options = {})
-        @create_database_on_connect = options[:create_database_on_connect]
+        @options = validate_options(options)
         @connection_uri = URI(conn_url || Orientdb::ORM.default_connection_url)
       end
 
@@ -72,7 +72,7 @@ module Orientdb
 
       def validate_options(options = {})
         options.reverse_merge!(
-          create_database_on_connect: false
+          create_database_on_connect: true
         )
       end
 
@@ -81,7 +81,7 @@ module Orientdb
       end
 
       def ensure_database
-        if create_database_on_connect
+        if @options[:create_database_on_connect]
           db = Database.new(self)
           db.create unless db.exists?
         end
