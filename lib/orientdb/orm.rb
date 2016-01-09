@@ -51,18 +51,18 @@ module Orientdb
     end
 
     def self.logger
-      @@logger ||= Logger.new(STDOUT)
+      @@logger ||= Orientdb4r::logger
     end
 
     def self.logger=(value)
-      @@logger = value
+      @@logger = Orientdb4r::logger = value
     end
 
   end
 end
 
 # Configuration of logging.
-Orientdb::ORM::logger.level = Logger::INFO
+Orientdb::ORM::logger.level = Logger::WARN
 
 require 'uri/orientdb'
 
