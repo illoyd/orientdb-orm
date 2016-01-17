@@ -12,14 +12,14 @@ describe Orientdb::ORM::V do
 
       it 'has default attributes' do
         # expect( subject.attributes.keys ).to match_array %w( @rid @class @type @fieldTypes @version )
-        expect( subject.attributes.keys ).to match_array %w( @rid @class @fieldTypes )
+        expect( subject.attributes.keys ).to be_empty
       end
 
-      its('_rid')         { should eq Orientdb::ORM::RID.new(-1,-1) }
+      its('_rid')         { should be_nil }
       its('_class')       { should eq('V') }
       its('_type')        { should be_nil }
       its('_version')     { should be_nil }
-      its('_field_types') { should be_a(Orientdb::ORM::FieldType) }
+      its('_field_types') { should be_nil }
 
       describe 'persisted attributes' do
         its('persisted?') { should be false }
@@ -48,8 +48,7 @@ describe Orientdb::ORM::V do
         its('_version')          { should eq(1) }
 
         its('_field_types')      { should be_a(Orientdb::ORM::FieldType) }
-        its('_field_types.to_s') { should eq('roles=n') }
-        its('_field_types.field_types') { should eq({ 'roles'=>'n', '@rid'=>Orientdb::ORM::RID, '@fieldTypes'=>Orientdb::ORM::FieldType }) }
+        its('_field_types')      { should eq('roles'=>'n') }
       end
 
       describe 'persisted attributes' do

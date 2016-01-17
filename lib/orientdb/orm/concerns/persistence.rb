@@ -22,7 +22,7 @@ module Orientdb
 
         def reload!
           obj = self.class.find(_rid)
-          update_attributes(obj.attributes)
+          assign_attributes(obj.attributes)
           changes_applied
           self
         end
@@ -31,6 +31,12 @@ module Orientdb
 
         def create_or_update
           persisted? ? update : create
+        end
+
+        def serialized_attributes
+          attributes.each_with_object({}) do |(k,v),h|
+            h[k] = _serialize_value(k,v)
+          end
         end
 
       end # included

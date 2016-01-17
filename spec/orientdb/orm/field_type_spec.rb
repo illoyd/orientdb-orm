@@ -1,6 +1,6 @@
 require './spec/spec_helper.rb'
 
-describe Orientdb::ORM::FieldType do
+xdescribe Orientdb::ORM::FieldType do
 
   describe '.parse' do
 

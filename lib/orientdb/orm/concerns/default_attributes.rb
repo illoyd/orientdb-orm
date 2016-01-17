@@ -4,7 +4,7 @@ module Orientdb
       extend ActiveSupport::Concern
 
       included do
-        
+
         protected
 
         def ensure_default_attributes(*params)
@@ -12,7 +12,7 @@ module Orientdb
           self.class.attribute_definitions.values.each do |attr|
             # Configure field type
             self._field_types[attr.name] ||= attr.field_type
-            
+
             # Configure default attribute
             self.attributes[attr.name] ||= attr.default
           end
@@ -23,26 +23,26 @@ module Orientdb
       class_methods do
 
         def attribute_definitions_for(key)
-          @@attributes       ||= {}
+          @@attributes      ||= {}
           @@attributes[key] ||= {}
         end
-        
+
         def attribute_definitions
           ancestors.each_with_object({}) { |klass,h| h.merge!(attribute_definitions_for(klass)) }
         end
-        
+
         def attribute(name, field_type, options = {})
           attr = AttributeDefinition.new(name, field_type, options)
 
-          # Save attribute for later reference
-          attribute_definitions_for(self)[attr.name] = attr
-          
+          # Save attribute into schema
+          schema << attr
+
           # Configure validations
           if attr.validates_options.try(:any?)
             validates attr.accessor, attr.validates_options
           end
         end
-        
+
       end # class_methods
 
     end

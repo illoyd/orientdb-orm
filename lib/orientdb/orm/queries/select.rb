@@ -3,7 +3,7 @@ module Orientdb
     module Queries
 
       class Select < Base
-        
+
         def initialize(params = {})
           params       = self.class.normalize_params(params)
           @projections = params[:projections]
@@ -11,7 +11,7 @@ module Orientdb
           @where       = params[:where]
           @limit       = params[:limit]
         end
-        
+
         def execute(conn = nil)
           return Orientdb::ORM.with { |client| self.execute(client) } if conn.nil?
           Result.new(conn.query(self.to_s))
@@ -19,22 +19,22 @@ module Orientdb
           rescue Orientdb4r::NotFoundError
             Result.new([])
         end
-        
+
         def to_s
           sentence = [ 'SELECT', projections_clause, 'FROM', from_clause, where_clause, limit_clause ]
-          sentence.reject(&:blank?).join(' ')
+          sentence.flatten.reject(&:blank?).join(' ')
         end
-        
+
         def projections(params)
           @projections = params
           self
         end
-        
+
         def from(value)
           @from = value
           self
         end
-        
+
         def where(options)
           case options
           when Hash
@@ -45,12 +45,12 @@ module Orientdb
           end
           self
         end
-        
+
         def limit(value)
           @limit = value
           self
         end
-        
+
         def projections_clause
           params = case @projections
             when Array
@@ -60,7 +60,7 @@ module Orientdb
             end
           params if params.present?
         end
-        
+
         def from_clause
           case @from
           when Class
@@ -75,7 +75,7 @@ module Orientdb
             end
           end
         end
-        
+
         def where_clause
           params = if @where.is_a?(Hash)
             self.class.convert_hash_to_key_value_assignment(@where, " AND ")
@@ -84,13 +84,13 @@ module Orientdb
           end
           "WHERE #{ params }" if params.present?
         end
-        
+
         def limit_clause
           "LIMIT #{ @limit }" if @limit.present?
         end
-        
+
         protected
-        
+
         def self.normalize_params(params)
           case params
           when Hash
@@ -105,9 +105,9 @@ module Orientdb
             end
           end
         end
-        
+
       end
-  
+
     end
   end
 end
