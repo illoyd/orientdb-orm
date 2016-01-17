@@ -36,7 +36,7 @@ module Orientdb
           schema.merge_field_types(new_attributes['@fieldTypes'])
 
           # Merge defaults into the new attribute hash
-          new_attributes.reverse_merge!(schema.default_attributes)
+          new_attributes.stringify_keys!.reverse_merge!(schema.default_attributes)
 
           # Allow super to execute now
           super
@@ -48,32 +48,6 @@ module Orientdb
         def persisted?
           self.id.try(:persisted?) || false
         end
-#
-#
-#           attributes ||= {}
-#
-#           # Initialise the attributes hash using unprotected attributes; this enables magic attributes assignment
-#           # @attributes = attributes.except(*PROTECTED_KEYS).with_indifferent_access
-#           @attributes = attributes.keys.each_with_object(ActiveSupport::HashWithIndifferentAccess.new) { |k,h| h[k] = nil }
-#
-#           # Prepare field types; should be called first to enable coercion of all other attributes
-#           @attributes['@fieldTypes'] = FieldType.call( attributes['@fieldTypes'] )
-#
-#           # Assign remaining protected attributes
-#           self['@rid']        = attributes['@rid']
-#           self['@class']      = attributes['@class'] || self.class.name.demodulize
-#           self['@type']       = attributes['@type']
-#           self['@version']    = attributes['@version']
-#
-#           # TODO: Hack to implement default attributes. Can we move?
-#           ensure_default_attributes
-#
-#           # Assign all other attributes
-#           super(attributes.except(*PROTECTED_KEYS))
-#
-#           # Accept all changes
-#           changes_applied
-#         end
 
         def custom_attributes
           attributes.except(*PROTECTED_KEYS)

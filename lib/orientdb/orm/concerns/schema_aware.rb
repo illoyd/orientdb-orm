@@ -33,7 +33,11 @@ module Orientdb
         end
 
         def compiled_schema
-          ancestors.each_with_object(self.schema) { |klass,s| s.reverse_merge!(@@schemas[klass]) }
+          schema.tap do |ss|
+            ancestors.each do |klass|
+              ss.reverse_merge!(@@schemas[klass]) if @@schemas[klass]
+            end
+          end
         end
 
       end # class_methods

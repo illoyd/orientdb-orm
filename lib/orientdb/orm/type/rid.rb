@@ -16,16 +16,14 @@ module Orientdb::ORM
       private
 
       def cast_value(value)
+        # If value responds to #id, keep the object
+        return value if value.respond_to?(:id)
 
         # If value is a RID, return it
         return value if value.is_a?(Orientdb::ORM::RID)
 
-        # If value responds to #id, keep the object
-        return value if value.respond_to?(:id)
-
         # If value matches the regex, return a new RID
         return Orientdb::ORM::RID.new($1.to_i, $2.to_i) if Orientdb::ORM::RID::RID_REGEX.match(value)
-
       end
 
     end

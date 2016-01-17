@@ -27,6 +27,8 @@ module Orientdb
           :linkset
         when LinkListType, LinkBagType
           :linklist
+        when LinkMap
+          :linkmap
         else
           :value
         end

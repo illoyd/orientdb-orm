@@ -11,7 +11,9 @@ describe 'Edge Detection', :with_database do
     expect{ v2.save }.not_to raise_error
     expect( v2.persisted? ).to be true
 
-    e1 = ExampleEdge.new( in: v1, out: v2 )
+    e1 = ExampleEdge.new(in: v1, out: v2)
+    expect( e1.in ).to eq(v1)
+    expect( e1.out ).to eq(v2)
     expect{ e1.save }.not_to raise_error
     expect( e1.in ).to be_a(Orientdb::ORM::RID)
     expect( e1.out ).to be_a(Orientdb::ORM::RID)
