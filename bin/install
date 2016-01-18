@@ -1,1 +1,7 @@
-gem build orientdb-orm.gemspec && gem install orientdb-orm-0.1.0.gem
+#!/usr/bin/env ruby
+
+# Require version file
+require './lib/orientdb/orm/version'
+
+# Execute!
+system( "gem build orientdb-orm.gemspec && gem install orientdb-orm-#{ Orientdb::ORM::VERSION }.gem" )
