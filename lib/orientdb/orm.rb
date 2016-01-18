@@ -68,7 +68,6 @@ require 'uri/orientdb'
 
 require 'orientdb/orm/constants'
 require 'orientdb/orm/errors'
-require 'orientdb/orm/converters'
 require 'orientdb/orm/field_type'
 require 'orientdb/orm/attribute_definition'
 
