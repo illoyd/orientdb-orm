@@ -3,7 +3,7 @@ module Orientdb
     module Queries
 
       class CreateEdge < Base
-        
+
         def initialize(params = {})
           params       = self.class.normalize_params(params)
           @edge        = params[:edge]
@@ -11,7 +11,7 @@ module Orientdb
           @to          = params[:to]
           @set         = params[:set]
         end
-        
+
         def execute(conn = nil)
           return Orientdb::ORM.with { |client| self.execute(client) } if conn.nil?
           Result.new( conn.command(self.to_s)['result'] )
@@ -19,27 +19,27 @@ module Orientdb
           rescue Orientdb4r::NotFoundError
             Result.new([])
         end
-        
+
         def to_s
           sentence = [ 'CREATE EDGE', edge_clause, 'FROM', from_clause, 'TO', to_clause, set_clause ]
-          sentence.reject(&:blank?).join(' ')
+          sentence.flatten.reject(&:blank?).join(' ')
         end
-        
+
         def edge(value)
           @edge = value
           self
         end
-        
+
         def from(value)
           @from = value
           self
         end
-        
+
         def to(value)
           @to = value
           self
         end
-        
+
         def set(options)
           case options
           when Hash
@@ -50,15 +50,15 @@ module Orientdb
           end
           self
         end
-        
+
         def edge_clause
           self.class.class_for(@edge, 'E')
         end
-        
+
         def from_clause
           self.class.target_rid_for(@from)
         end
-        
+
         def to_clause
           self.class.target_rid_for(@to)
         end
@@ -70,12 +70,12 @@ module Orientdb
           else
             @set
           end
-          
+
           "SET #{ params }" if params.present?
         end
-        
+
         protected
-        
+
         def self.normalize_params(params)
           if params.is_a?(Hash)
             params.with_indifferent_access
@@ -90,9 +90,9 @@ module Orientdb
             throw ArgumentError "Unknown params! Given #{ params }. Expected Hash, or Object that responds to attributes."
           end
         end
-        
+
       end
-  
+
     end
   end
 end

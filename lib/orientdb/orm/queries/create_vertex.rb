@@ -3,13 +3,13 @@ module Orientdb
     module Queries
 
       class CreateVertex < Base
-        
+
         def initialize(params = {})
           params       = self.class.normalize_params(params)
           @vertex      = params[:vertex]
           @set         = params[:set]
         end
-        
+
         def execute(conn = nil)
           return Orientdb::ORM.with { |client| self.execute(client) } if conn.nil?
           Result.new( conn.command(self.to_s)['result'] )
@@ -17,17 +17,17 @@ module Orientdb
           rescue Orientdb4r::NotFoundError
             Result.new([])
         end
-        
+
         def to_s
           sentence = [ 'CREATE VERTEX', vertex_clause, set_clause ]
-          sentence.reject(&:blank?).join(' ')
+          sentence.flatten.reject(&:blank?).join(' ')
         end
-        
+
         def vertex(value)
           @vertex = value
           self
         end
-        
+
         def set(options)
           case options
           when Hash
@@ -38,7 +38,7 @@ module Orientdb
           end
           self
         end
-        
+
         def vertex_clause
           if @vertex.is_a?(Class)
             @vertex.name.demodulize
@@ -48,7 +48,7 @@ module Orientdb
             @vertex.to_s.presence || 'V'
           end
         end
-        
+
         def set_clause
           params = if @set.is_a?(Hash)
             values = @set.except('@rid', '@class', '@version', '@type', '@fieldTypes')
@@ -56,12 +56,12 @@ module Orientdb
           else
             @set
           end
-          
+
           "SET #{ params }" if params.present?
         end
-        
+
         protected
-        
+
         def self.normalize_params(params)
           if params.is_a?(Hash)
             params.with_indifferent_access
@@ -74,9 +74,9 @@ module Orientdb
             throw ArgumentError "Unknown params! Given #{ params }. Expected Hash, or Object that responds to attributes."
           end
         end
-        
+
       end
-  
+
     end
   end
 end

@@ -6,8 +6,17 @@ module Orientdb
       include Orientdb::ORM::EdgePersistence
 
       included do
-        attribute :in,  Orientdb::ORM::LinkType, validations: { presence: true }
-        attribute :out, Orientdb::ORM::LinkType, validations: { presence: true }
+        attribute :in,  :link, validations: { presence: true }
+        #attribute :out, :link, validations: { presence: true }
+
+        def from
+          attribute('out'.freeze)
+        end
+
+        def to
+          attribute('in'.freeze)
+        end
+
       end # included
 
       class_methods do

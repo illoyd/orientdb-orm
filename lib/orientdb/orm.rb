@@ -68,27 +68,56 @@ require 'uri/orientdb'
 
 require 'orientdb/orm/constants'
 require 'orientdb/orm/errors'
-require 'orientdb/orm/converters'
-require 'orientdb/orm/rid'
 require 'orientdb/orm/field_type'
 require 'orientdb/orm/attribute_definition'
+
+# Common objects
+require 'orientdb/orm/rid'
+
+# Type converters
+require 'orientdb/orm/type/rid'
+require 'orientdb/orm/type/field_types'
+require 'orientdb/orm/type/linklist'
+require 'orientdb/orm/type/linkset'
+require 'orientdb/orm/type/linkmap'
+
+ActiveModel::Type.register :value,      ActiveModel::Type::Value
+ActiveModel::Type.register :rid,        Orientdb::ORM::Type::RID
+ActiveModel::Type.register :link,       Orientdb::ORM::Type::RID
+ActiveModel::Type.register :fieldtypes, Orientdb::ORM::Type::FieldTypes
+ActiveModel::Type.register :linklist,   Orientdb::ORM::Type::LinkList
+ActiveModel::Type.register :linkset,    Orientdb::ORM::Type::LinkSet
+ActiveModel::Type.register :linkmap,    Orientdb::ORM::Type::LinkMap
+
+# Schema
+require 'orientdb/orm/schema'
+
+# Object concerns and building blocks
+require 'orientdb/orm/concerns/schema_aware'
+require 'orientdb/orm/concerns/special_attributes'
+require 'orientdb/orm/concerns/attributes'
 require 'orientdb/orm/concerns/finders'
 require 'orientdb/orm/concerns/persistence'
 require 'orientdb/orm/concerns/default_attributes'
-require 'orientdb/orm/concerns/attributes'
+require 'orientdb/orm/concerns/attribute_assignment'
 require 'orientdb/orm/concerns/document'
 require 'orientdb/orm/concerns/vertex_persistence'
 require 'orientdb/orm/concerns/vertex'
 require 'orientdb/orm/concerns/edge_persistence'
 require 'orientdb/orm/concerns/edge'
+
+# Public objects
 require 'orientdb/orm/v'
 require 'orientdb/orm/e'
-require 'orientdb/orm/client'
-require 'orientdb/orm/database'
 
+# Queries
 require 'orientdb/orm/queries/base'
 require 'orientdb/orm/queries/result'
 require 'orientdb/orm/queries/select'
 require 'orientdb/orm/queries/create_vertex'
 require 'orientdb/orm/queries/update_vertex'
 require 'orientdb/orm/queries/create_edge'
+
+# Client, pool, and database objects
+require 'orientdb/orm/client'
+require 'orientdb/orm/database'

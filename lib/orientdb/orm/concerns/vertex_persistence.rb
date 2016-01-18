@@ -4,13 +4,14 @@ module Orientdb
       extend ActiveSupport::Concern
 
       included do
-        
+
         def create
           run_callbacks :create do
-            results = Orientdb::ORM::Queries::CreateVertex.new.vertex(self._class).set(self.attributes).execute
-            update_attributes(results.first.attributes)
+            results = Orientdb::ORM::Queries::CreateVertex.new.vertex(self._class).set(self.serialized_attributes).execute
+            assign_attributes(results.first.special_attributes)
+            assign_attributes(results.first.attributes)
             changes_applied
-            persisted?            
+            persisted?
           end
         end
 
@@ -23,7 +24,7 @@ module Orientdb
         end
 
       end # included
-      
+
       class_methods do
       end # class_methods
 
