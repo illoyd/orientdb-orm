@@ -27,6 +27,18 @@ module Orientdb
 
       class_methods do
 
+        def attribute(name, type, options = {})
+          attr = AttributeDefinition.new(name, type, options)
+
+          # Save attribute into schema
+          self.schema << attr
+
+          # Configure validations
+          if attr.validates_options.try(:any?)
+            validates(attr.accessor, attr.validates_options)
+          end
+        end
+
         def schema
           @@schemas       ||= {}
           @@schemas[self] ||= Orientdb::ORM::Schema.new

@@ -12,7 +12,6 @@ module Orientdb
       include Orientdb::ORM::AttributeAssignment
       include Orientdb::ORM::Attributes
       include Orientdb::ORM::SpecialAttributes
-      include Orientdb::ORM::DefaultAttributes
       include Orientdb::ORM::Finders
       include Orientdb::ORM::Persistence
 
