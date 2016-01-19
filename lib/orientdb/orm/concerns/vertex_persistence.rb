@@ -17,7 +17,7 @@ module Orientdb
 
         def update
           run_callbacks :update do
-            results = Orientdb::ORM::Queries::UpdateVertex.new.vertex(self._rid).set(self.attributes).execute
+            results = Orientdb::ORM::Queries::UpdateVertex.new.vertex(self).set(self.serialized_attributes).execute
             changes_applied
             results.first['value'] == 1
           end
