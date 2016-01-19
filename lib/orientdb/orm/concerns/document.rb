@@ -29,8 +29,8 @@ module Orientdb
 
         def initialize(new_attributes={})
           # Setup basic attributes
-          @attributes         = {}
-          @special_attributes = {}
+          @attributes         = HashWithIndifferentAccess.new
+          @special_attributes = HashWithIndifferentAccess.new
 
           # Install the new field types into the schema
           schema.merge_field_types(new_attributes['@fieldTypes'])
