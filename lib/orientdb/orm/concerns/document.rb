@@ -36,10 +36,10 @@ module Orientdb
           schema.merge_field_types(new_attributes['@fieldTypes'])
 
           # Merge defaults into the new attribute hash
-          new_attributes.stringify_keys!.reverse_merge!(schema.default_attributes)
+          attrs = new_attributes.stringify_keys.reverse_merge(schema.default_attributes)
 
           # Allow super to execute now
-          super
+          super(attrs)
 
           # Ignore all changes
           changes_applied
