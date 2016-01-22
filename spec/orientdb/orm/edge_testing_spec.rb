@@ -6,10 +6,8 @@ describe 'Edge Detection', :with_database do
     v1 = ExampleVertex.new( label: 'V1' )
     v2 = ExampleVertex.new( label: 'V2' )
 
-    expect{ v1.save }.not_to raise_error
-    expect( v1.persisted? ).to be true
-    expect{ v2.save }.not_to raise_error
-    expect( v2.persisted? ).to be true
+    expect{ v1.save }.to change( v1, :persisted? ).from(false).to(true)
+    expect{ v2.save }.to change( v2, :persisted? ).from(false).to(true)
 
     e1 = ExampleEdge.new(in: v1, out: v2)
     expect( e1.in ).to eq(v1)

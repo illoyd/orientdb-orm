@@ -5,7 +5,6 @@ module Orientdb
       class CreateEdge < Base
 
         def initialize(params = {})
-          params       = self.class.normalize_params(params)
           @edge        = params[:edge]
           @from        = params[:from]
           @to          = params[:to]
@@ -56,11 +55,11 @@ module Orientdb
         end
 
         def from_clause
-          @from
+          ActiveModel::Type.lookup(:link).serialize(@from)
         end
 
         def to_clause
-          @to
+          ActiveModel::Type.lookup(:link).serialize(@to)
         end
 
         def set_clause
@@ -72,23 +71,6 @@ module Orientdb
           end
 
           "SET #{ params }" if params.present?
-        end
-
-        protected
-
-        def self.normalize_params(params)
-          if params.is_a?(Hash)
-            params.with_indifferent_access
-          elsif params.respond_to?(:attributes)
-            {
-              edge:   params,
-              to:     params.in,
-              from:   params.out,
-              set:    params.attributes
-            }
-          else
-            throw ArgumentError "Unknown params! Given #{ params }. Expected Hash, or Object that responds to attributes."
-          end
         end
 
       end

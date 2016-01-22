@@ -9,6 +9,9 @@ module Orientdb::ORM
         # If this object responds to #id, then reference that instead
         return serialize(value.id) if value.respond_to?(:id)
 
+        # If this object responds to #_rid, then reference that instead
+        return serialize(value._rid) if value.respond_to?(:_rid)
+
         # Otherwise, we'll default to coercing the RID to a string
         value
       end
