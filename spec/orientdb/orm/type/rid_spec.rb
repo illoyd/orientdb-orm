@@ -3,16 +3,12 @@ describe Orientdb::ORM::Type::RID do
   describe '#serialize' do
 
     it 'converts RID(1,2)' do
-      expect( subject.serialize(Orientdb::ORM::RID.new(1,2)) ).to eq '#1:2'
-    end
-
-    it 'converts RID(-1,-1)' do
-      expect( subject.serialize(Orientdb::ORM::RID.new(-2,-3)) ).to eq '#-2:-3'
+      expect( subject.serialize(Orientdb::ORM::RID.new(1,2)) ).to eq Orientdb::ORM::RID.new(1,2)
     end
 
     it 'does not cast an object that responds to #id' do
       v = ExampleVertex.new( '@rid' => Orientdb::ORM::RID.new(3,4) )
-      expect( subject.serialize(v) ).to eq '#3:4'
+      expect( subject.serialize(v) ).to eq Orientdb::ORM::RID.new(3,4)
     end
 
   end

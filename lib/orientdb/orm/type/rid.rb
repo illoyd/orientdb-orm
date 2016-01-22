@@ -10,7 +10,7 @@ module Orientdb::ORM
         return serialize(value.id) if value.respond_to?(:id)
 
         # Otherwise, we'll default to coercing the RID to a string
-        value.to_s
+        value
       end
 
       private
