@@ -6,7 +6,6 @@ module Orientdb
       # Return a recognised ActiveModel::Type registry name for the given key
       # Not supported:
       #   b (boolean or binary or byte)
-      #   m (linkmap)
       def type_for(key)
         case self[key].try(:strip)
         when FloatType
@@ -22,12 +21,12 @@ module Orientdb
         when SetType
           :set
         when LinkType
-          :rid
+          :link
         when LinkSetType
           :linkset
         when LinkListType, LinkBagType
           :linklist
-        when LinkMap
+        when LinkMapType
           :linkmap
         else
           :value

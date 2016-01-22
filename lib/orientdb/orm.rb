@@ -76,10 +76,10 @@ require 'orientdb/orm/rid'
 
 # Type converters
 require 'orientdb/orm/type/rid'
-require 'orientdb/orm/type/field_types'
 require 'orientdb/orm/type/linklist'
 require 'orientdb/orm/type/linkset'
 require 'orientdb/orm/type/linkmap'
+require 'orientdb/orm/type/field_types'
 
 ActiveModel::Type.register :value,      ActiveModel::Type::Value
 ActiveModel::Type.register :rid,        Orientdb::ORM::Type::RID
