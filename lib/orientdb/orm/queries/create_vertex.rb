@@ -28,13 +28,13 @@ module Orientdb
           self
         end
 
-        def set(options)
-          case options
+        def set(value)
+          case value
           when Hash
             @set ||= {}
-            @set.merge!(options)
+            @set.merge!(value)
           else
-            @set = options
+            @set = value
           end
           self
         end
@@ -51,8 +51,7 @@ module Orientdb
 
         def set_clause
           params = if @set.is_a?(Hash)
-            values = @set.except('@rid', '@class', '@version', '@type', '@fieldTypes')
-            self.class.convert_hash_to_key_value_assignment(values, ', ')
+            self.class.convert_hash_to_key_value_assignment(@set, ', ')
           else
             @set
           end

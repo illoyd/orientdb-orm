@@ -40,13 +40,13 @@ module Orientdb
           self
         end
 
-        def set(options)
-          case options
+        def set(value)
+          case value
           when Hash
             @set ||= {}
-            @set.merge!(options)
+            @set.merge!(value)
           else
-            @set = options
+            @set = value
           end
           self
         end
@@ -56,11 +56,11 @@ module Orientdb
         end
 
         def from_clause
-          self.class.target_rid_for(@from)
+          @from
         end
 
         def to_clause
-          self.class.target_rid_for(@to)
+          @to
         end
 
         def set_clause
