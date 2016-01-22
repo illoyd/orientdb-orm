@@ -14,7 +14,7 @@ module Orientdb
 
         # Set a default attribute definition if one is not already set
         if @attributes.default.nil?
-          @attributes.default = AttributeDefinition.new(nil, :string)
+          @attributes.default = AttributeDefinition.new(nil, :value)
         end
       end
 
