@@ -15,7 +15,7 @@ module Orientdb
 
         def update
           run_callbacks :update do
-            params = updateable_attributes.map{ |k,v| "#{ k } = #{ self.class.sanitize_parameter(v) }"}.join(", ")
+            params = updateable_attributes.map{ |k,v| "#{ k } = #{ self.class.quote(v) }"}.join(", ")
 
             query = "UPDATE EDGE #{ _rid } SET #{ params }"
             #puts "Query: #{ query }"

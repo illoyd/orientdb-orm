@@ -7,7 +7,7 @@ module Orientdb
 
       included do
         attribute :in,  :link, validations: { presence: true }
-        #attribute :out, :link, validations: { presence: true }
+        attribute :out, :link, validations: { presence: true }
 
         def from
           attribute('out'.freeze)

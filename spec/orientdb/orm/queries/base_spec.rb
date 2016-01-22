@@ -21,27 +21,4 @@ describe Orientdb::ORM::Queries::Base do
 
   end
 
-  describe '.sanitize_parameter' do
-
-    it 'converts nil to NULL' do
-      expect( described_class.sanitize_parameter(nil) ).to eq('NULL')
-    end
-
-    it 'sanitises Arrays' do
-      param = [ 'string', 1, nil ]
-      expect( described_class.sanitize_parameter(param) ).to eq([ 'string', 1, 'NULL' ])
-    end
-
-    it 'sanitises Hashes' do
-      param = { 'a' => 'string', 'b' => 1, c: nil }
-      expect( described_class.sanitize_parameter(param) ).to eq({ 'a' => 'string', 'b' => 1, c: 'NULL' })
-    end
-
-    it 'sanitises Sets' do
-      param = Set.new([ 'string', 1, nil ])
-      expect( described_class.sanitize_parameter(param) ).to match_array([ 'string', 1, 'NULL' ])
-    end
-
-  end
-
 end

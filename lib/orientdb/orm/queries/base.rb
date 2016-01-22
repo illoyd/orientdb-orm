@@ -6,7 +6,7 @@ module Orientdb
         include Orientdb::ORM::Quoting
 
         def self.convert_hash_to_key_value_assignment(hash, glue = ', ')
-          hash.map { |k,v| "#{ k } = #{ quote(v) }" }.join(glue)
+          hash.map { |k,v| "#{ k } = #{ self.quote(v) }" }.join(glue)
         end
 
         def self.target_rid_for(param)
