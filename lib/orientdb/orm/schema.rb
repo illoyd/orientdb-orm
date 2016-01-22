@@ -26,6 +26,18 @@ module Orientdb
         @attributes[name.to_s]
       end
 
+      def serialize(name, value)
+        self[name].type.serialize(value)
+      end
+
+      def deserialize(name, value)
+        self[name].type.deserialize(value)
+      end
+
+      def cast(name, value)
+        self[name].type.cast(value)
+      end
+
       def type_for(name)
         self[name].type
       end
