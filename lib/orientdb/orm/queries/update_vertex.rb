@@ -12,19 +12,15 @@ module Orientdb
         end
 
         def execute(conn = nil)
-          return Orientdb::ORM.with { |client| self.execute(client) } if conn.nil?
-
-          response = conn.command(self.to_s)
-          Result.new( response['result'] )
-
-          rescue Orientdb4r::NotFoundError
-            Result.new([])
+          execute_command_returning_result(to_query)
         end
 
-        def to_s
+        def to_query
           sentence = [ 'UPDATE', vertex_clause, set_clause, where_clause ]
           sentence.flatten.reject(&:blank?).join(' ')
         end
+
+        alias :to_s :to_query
 
         def vertex(value)
           @vertex = value

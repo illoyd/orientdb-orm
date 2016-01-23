@@ -13,17 +13,18 @@ module Orientdb
         end
 
         def execute(conn = nil)
-          return Orientdb::ORM.with { |client| self.execute(client) } if conn.nil?
-          Result.new(conn.query(self.to_s))
-
-          rescue Orientdb4r::NotFoundError
-            Result.new([])
+          response = execute_query(to_query)
+          Result.new( response ).tap do |results|
+            Orientdb::ORM::logger.debug { "#{ self.class.name } Results: #{ results }" }
+          end
         end
 
-        def to_s
+        def to_query
           sentence = [ 'SELECT', projections_clause, 'FROM', from_clause, where_clause, limit_clause ]
           sentence.flatten.reject(&:blank?).join(' ')
         end
+
+        alias :to_s :to_query
 
         def projections(params)
           @projections = params
