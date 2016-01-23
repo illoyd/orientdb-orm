@@ -9,7 +9,7 @@ module Orientdb
       def initialize()
         @attributes = {}
 
-        self << AttributeDefinition.new('@rid', :rid)
+        self << AttributeDefinition.new('@rid', :link)
         self << AttributeDefinition.new('@fieldTypes', :fieldtypes)
 
         # Set a default attribute definition if one is not already set
