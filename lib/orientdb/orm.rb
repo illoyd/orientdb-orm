@@ -82,8 +82,7 @@ require 'orientdb/orm/schema'
 
 # Object concerns and building blocks
 require 'orientdb/orm/document'
-require 'orientdb/orm/concerns/vertex_persistence'
-require 'orientdb/orm/concerns/vertex'
+require 'orientdb/orm/vertex'
 require 'orientdb/orm/concerns/edge_persistence'
 require 'orientdb/orm/concerns/edge'
 

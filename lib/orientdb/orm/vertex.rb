@@ -1,9 +1,11 @@
+require 'orientdb/orm/vertex/persistence'
+
 module Orientdb
   module ORM
     module Vertex
       extend ActiveSupport::Concern
       include Orientdb::ORM::Document
-      include Orientdb::ORM::VertexPersistence
+      include Orientdb::ORM::Vertex::Persistence
 
       included do
       end # included

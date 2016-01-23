@@ -1,25 +1,25 @@
 require './spec/spec_helper.rb'
 
-describe Orientdb::ORM::VertexPersistence, :with_database do
+describe Orientdb::ORM::Vertex::Persistence, :with_database do
   describe ExampleVertex do
 
     describe '#save' do
-        
+
       context 'with new vertex object' do
         subject { ExampleVertex.new('name' => 'Test') }
-        
+
         it 'is valid before save' do
           expect( subject.valid? ).to be_truthy
         end
-  
+
         it 'succeeds' do
           expect{ subject.save }.not_to raise_error
         end
-        
+
         it 'returns true' do
           expect( subject.save ).to be_truthy
         end
-        
+
         it 'is persisted' do
           expect{ subject.save }.to change(subject, :persisted?).from(false).to(true)
         end
@@ -39,7 +39,7 @@ describe Orientdb::ORM::VertexPersistence, :with_database do
           subject.name = 'Another test'
           expect{ subject.save }.not_to change(subject, :persisted?).from(true)
         end
-        
+
         it 'changes name value' do
           expect( subject.name ).to eq('Test')
           subject.name = 'Another test'
@@ -50,6 +50,6 @@ describe Orientdb::ORM::VertexPersistence, :with_database do
       end # with existing document
 
     end # with existing document
-      
+
   end # ExampleVertex
 end # Orientdb::ORM::VertexPersistence
