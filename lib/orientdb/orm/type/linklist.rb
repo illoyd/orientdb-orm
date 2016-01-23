@@ -6,7 +6,7 @@ module Orientdb::ORM
     class LinkList < ActiveModel::Type::Value
 
       def serialize(value)
-        return [] if value.nil?
+        return nil if value.blank?
 
         rtype = self.class.rid_type
         value.map { |v| rtype.serialize(v) }
@@ -15,10 +15,13 @@ module Orientdb::ORM
       private
 
       def cast_value(value)
-        return [] if value.nil?
+        return [] if value.blank?
 
         # If a string, split by commas
-        value = value.split(',').map(&:strip) if value.is_a?(String)
+        if value.is_a?(String)
+          value = /\A\s*\[?([^\]]+)\]?\s*\Z/.match(value)[1]
+          value = value.split(',').map(&:strip)
+        end
 
         # For every entry, convert to a RID
         rtype = self.class.rid_type
