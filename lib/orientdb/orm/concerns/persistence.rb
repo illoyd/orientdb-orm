@@ -20,6 +20,16 @@ module Orientdb
           save || ( raise Orientdb::ORM::ObjectNotSaved.new(nil, self) )
         end
 
+        def update(new_attributes)
+          assign_attributes(new_attributes)
+          save
+        end
+
+        def update!(new_attributes)
+          assign_attributes(new_attributes)
+          save!
+        end
+
         def reload!
           obj = self.class.find(_rid)
           assign_attributes(obj.attributes)
