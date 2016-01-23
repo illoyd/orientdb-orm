@@ -1,0 +1,24 @@
+module Orientdb
+  module ORM
+
+    ##
+    # Type module for type casting and serialising data between ORM objects, the database, and users.
+    module Type
+    end # Type
+
+  end # ORM
+end # Orientdb
+
+require 'orientdb/orm/type/rid'
+require 'orientdb/orm/type/linklist'
+require 'orientdb/orm/type/linkset'
+require 'orientdb/orm/type/linkmap'
+require 'orientdb/orm/type/field_types'
+
+ActiveModel::Type.register :value,      ActiveModel::Type::Value
+ActiveModel::Type.register :rid,        Orientdb::ORM::Type::RID
+ActiveModel::Type.register :link,       Orientdb::ORM::Type::RID
+ActiveModel::Type.register :linklist,   Orientdb::ORM::Type::LinkList
+ActiveModel::Type.register :linkset,    Orientdb::ORM::Type::LinkSet
+ActiveModel::Type.register :linkmap,    Orientdb::ORM::Type::LinkMap
+ActiveModel::Type.register :fieldtypes, Orientdb::ORM::Type::FieldTypes
