@@ -1,9 +1,11 @@
+require 'orientdb/orm/edge/persistence'
+
 module Orientdb
   module ORM
     module Edge
       extend ActiveSupport::Concern
       include Orientdb::ORM::Document
-      include Orientdb::ORM::EdgePersistence
+      include Orientdb::ORM::Edge::Persistence
 
       included do
         attribute :in,  :link, validations: { presence: true }
