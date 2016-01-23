@@ -1,25 +1,24 @@
 require './spec/spec_helper.rb'
 
 describe Orientdb::ORM::FieldType do
+  subject do
+    Orientdb::ORM::FieldType.new({
+      my_short:     Orientdb::ORM::ShortType,
+      my_long:      Orientdb::ORM::LongType,
+      my_double:    Orientdb::ORM::DoubleType,
+      my_float:     Orientdb::ORM::FloatType,
+      my_decimal:   Orientdb::ORM::DecimalType,
+      my_date:      Orientdb::ORM::DateType,
+      my_datetime:  Orientdb::ORM::DateTimeType,
+      my_set:       Orientdb::ORM::SetType,
+      my_link:      Orientdb::ORM::LinkType,
+      my_linkset:   Orientdb::ORM::LinkSetType,
+      my_linklist:  Orientdb::ORM::LinkListType,
+      my_linkmap:   Orientdb::ORM::LinkMapType,
+    })
+  end
 
   describe '#type_for' do
-    subject do
-      Orientdb::ORM::FieldType.new({
-        my_short:     Orientdb::ORM::ShortType,
-        my_long:      Orientdb::ORM::LongType,
-        my_double:    Orientdb::ORM::DoubleType,
-        my_float:     Orientdb::ORM::FloatType,
-        my_decimal:   Orientdb::ORM::DecimalType,
-        my_date:      Orientdb::ORM::DateType,
-        my_datetime:  Orientdb::ORM::DateTimeType,
-        my_set:       Orientdb::ORM::SetType,
-        my_link:      Orientdb::ORM::LinkType,
-        my_linkset:   Orientdb::ORM::LinkSetType,
-        my_linklist:  Orientdb::ORM::LinkListType,
-        my_linkmap:   Orientdb::ORM::LinkMapType,
-      })
-    end
-
     it 'gets integer for short' do
       expect( subject.type_for(:my_short) ).to eq :integer
     end
@@ -72,6 +71,19 @@ describe Orientdb::ORM::FieldType do
       expect( subject.type_for(:bogus) ).to eq :value
     end
 
+    it 'tests all types' do
+      expect( subject.values.uniq ).to match_array(Orientdb::ORM::Types)
+    end
+
+  end #type_for
+
+  describe 'ActiveModel::Type for all codes' do
+    Orientdb::ORM::Types.each do |type|
+      it "lookup type for #{ type }" do
+        type_symbol = subject.type_for(type)
+        expect( ActiveModel::Type.lookup(type_symbol) ).to be_a(ActiveModel::Type::Value)
+      end
+    end
   end
 
 end
