@@ -60,7 +60,7 @@ module Orientdb
       # Equals other if other is a RID or can be cast into a RID
       # HACK Fix the comparison logic here...
       def ==(other)
-        self.eql?(other) || ( !other.is_a?(RID) && self == Orientdb::ORM::Type::RID.new.cast(other) )
+        self.eql?(other) || ( !other.is_a?(RID) && self == Orientdb::ORM::Type.lookup(:link).cast(other) )
       end
 
       ##

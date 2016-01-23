@@ -1,4 +1,4 @@
-describe Orientdb::ORM::Type::RID do
+describe Orientdb::ORM::Type::Link do
 
   describe '#serialize' do
 

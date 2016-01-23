@@ -28,7 +28,7 @@ describe Orientdb::ORM::AttributeDefinition do
 
   describe '#field_type' do
     it 'accepts a string' do
-      expect( described_class.new('field', :link).type ).to be_a(Orientdb::ORM::Type::RID)
+      expect( described_class.new('field', :link).type ).to be_a(Orientdb::ORM::Type::Link)
     end
 
     it 'defaults to value if not specified' do

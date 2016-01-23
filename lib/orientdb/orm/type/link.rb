@@ -3,7 +3,7 @@ require 'active_model/type'
 module Orientdb::ORM
   module Type
 
-    class RID < ActiveModel::Type::Value
+    class Link < ActiveModel::Type::Value
 
       def serialize(value)
         # If this object responds to #id, then reference that instead
