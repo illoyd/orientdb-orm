@@ -1,5 +1,17 @@
+require 'orientdb/orm/document/schema_aware'
+require 'orientdb/orm/document/special_attributes'
+require 'orientdb/orm/document/attributes'
+require 'orientdb/orm/document/finders'
+require 'orientdb/orm/document/persistence'
+require 'orientdb/orm/document/attribute_assignment'
+
 module Orientdb
   module ORM
+
+    ##
+    # Document module, a baseline mixin for objects to interact with the Orientdb Document system.
+    # It is prefereable to use the Vertex or Edge mixins as those provide specific support for each
+    # of those types in the Graph database.
     module Document
       extend ActiveSupport::Concern
       extend ActiveModel::Callbacks
