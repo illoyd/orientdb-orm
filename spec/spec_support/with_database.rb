@@ -5,7 +5,7 @@ def create_database
   options = { database: Orientdb::ORM.connection_uri.database, user: Orientdb::ORM.connection_uri.user, password: Orientdb::ORM.connection_uri.password, type: :graph, storage: :memory }
   Orientdb::ORM.with do |conn|
     conn.client.create_database( options )
-    conn.command( "ALTER DATABASE DATETIMEFORMAT yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" )
+    #conn.command( "ALTER DATABASE DATETIMEFORMAT yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" )
   end
 end
 
