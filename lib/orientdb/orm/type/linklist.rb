@@ -8,7 +8,7 @@ module Orientdb::ORM
       def serialize(value)
         return nil if value.blank?
 
-        rtype = self.class.rid_type
+        rtype = self.class.link_type
         value.map { |v| rtype.serialize(v) }
       end
 
@@ -24,12 +24,12 @@ module Orientdb::ORM
         end
 
         # For every entry, convert to a RID
-        rtype = self.class.rid_type
+        rtype = self.class.link_type
         value.map { |v| rtype.cast(v) }
       end
 
-      def self.rid_type
-        ActiveModel::Type.lookup(:rid)
+      def self.link_type
+        ActiveModel::Type.lookup(:link)
       end
 
     end
