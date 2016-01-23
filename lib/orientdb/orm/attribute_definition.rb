@@ -19,7 +19,7 @@ module Orientdb
         when ActiveModel::Type::Value
           type
         else
-          ActiveModel::Type.lookup(type)
+          Orientdb::ORM::Type.lookup(type)
         end
       end
     end

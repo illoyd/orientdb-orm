@@ -81,7 +81,7 @@ describe Orientdb::ORM::FieldType do
     Orientdb::ORM::Types.each do |type|
       it "lookup type for #{ type }" do
         type_symbol = subject.type_for(type)
-        expect( ActiveModel::Type.lookup(type_symbol) ).to be_a(ActiveModel::Type::Value)
+        expect( Orientdb::ORM::Type.lookup(type_symbol) ).to be_a(ActiveModel::Type::Value)
       end
     end
   end

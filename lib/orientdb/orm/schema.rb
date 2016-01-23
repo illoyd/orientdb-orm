@@ -63,11 +63,11 @@ module Orientdb
       def merge_field_types(field_types = {})
         return if field_types.nil?
 
-        field_types = ActiveModel::Type.lookup(:fieldtypes).cast(field_types)
+        field_types = Orientdb::ORM::Type.lookup(:fieldtypes).cast(field_types)
 
         field_types.each do |k,_|
           code = field_types.type_for(k)
-          type = ActiveModel::Type.lookup(code)
+          type = Orientdb::ORM::Type.lookup(code)
           @attributes[k] = AttributeDefinition.new(k, type)
         end
       end

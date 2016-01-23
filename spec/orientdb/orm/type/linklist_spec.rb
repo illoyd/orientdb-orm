@@ -1,6 +1,6 @@
 require './spec/spec_helper.rb'
 
-fdescribe Orientdb::ORM::Type::LinkList do
+describe Orientdb::ORM::Type::LinkList do
 
   describe '#serialize' do
 

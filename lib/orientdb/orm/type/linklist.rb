@@ -29,7 +29,7 @@ module Orientdb::ORM
       end
 
       def self.link_type
-        ActiveModel::Type.lookup(:link)
+        Orientdb::ORM::Type.lookup(:link)
       end
 
     end

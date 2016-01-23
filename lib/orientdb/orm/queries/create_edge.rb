@@ -55,11 +55,11 @@ module Orientdb
         end
 
         def from_clause
-          ActiveModel::Type.lookup(:link).serialize(@from)
+          Orientdb::ORM::Type.lookup(:link).serialize(@from)
         end
 
         def to_clause
-          ActiveModel::Type.lookup(:link).serialize(@to)
+          Orientdb::ORM::Type.lookup(:link).serialize(@to)
         end
 
         def set_clause

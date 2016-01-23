@@ -19,7 +19,7 @@ module Orientdb::ORM
       end
 
       def self.rid_type
-        ActiveModel::Type.lookup(:rid)
+        Orientdb::ORM::Type.lookup(:link)
       end
 
     end
