@@ -3,6 +3,8 @@ require './spec/spec_helper.rb'
 describe Orientdb::ORM::Vertex::Persistence, :with_database do
   describe ExampleVertex do
 
+    it_behaves_like 'a persistable object'
+
     describe '#save' do
 
       context 'with new vertex object' do
@@ -49,7 +51,7 @@ describe Orientdb::ORM::Vertex::Persistence, :with_database do
 
       end # with existing document
 
-    end # with existing document
+    end #save
 
   end # ExampleVertex
 end # Orientdb::ORM::VertexPersistence

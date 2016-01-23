@@ -43,7 +43,7 @@ module Orientdb
         # Quote date/time values for use in SQL input. Includes microseconds
         # if the value is a Time responding to usec.
         def quote_date(value)
-          value.to_time.getutc.to_i.to_s
+          "DATE('#{ value.strftime('%Y-%m-%d %H:%M:%S') }')"
         end
 
         def quote_hash(value)
