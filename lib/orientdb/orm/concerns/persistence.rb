@@ -30,7 +30,7 @@ module Orientdb
         protected
 
         def create_or_update
-          persisted? ? update : create
+          persisted? ? _update : _create
         end
 
         def serialized_attributes

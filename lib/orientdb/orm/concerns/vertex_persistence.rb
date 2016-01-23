@@ -5,7 +5,9 @@ module Orientdb
 
       included do
 
-        def create
+        protected
+
+        def _create
           run_callbacks :create do
             results = Orientdb::ORM::Queries::CreateVertex.new.vertex(self._class).set(self.serialized_attributes).execute
             assign_attributes(results.first.special_attributes)
@@ -15,7 +17,7 @@ module Orientdb
           end
         end
 
-        def update
+        def _update
           run_callbacks :update do
             results = Orientdb::ORM::Queries::UpdateVertex.new.vertex(self).set(self.serialized_attributes).execute
             changes_applied

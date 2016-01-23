@@ -5,7 +5,9 @@ module Orientdb
 
       included do
 
-        def create
+        protected
+
+        def _create
           run_callbacks :create do
             response = Orientdb::ORM::Queries::CreateEdge.new.edge(self._class).from(self.from).to(self.to).set(self.serialized_attributes).execute
             assign_attributes(response.first.special_attributes)
@@ -13,7 +15,7 @@ module Orientdb
           end
         end
 
-        def update
+        def _update
           run_callbacks :update do
             params = updateable_attributes.map{ |k,v| "#{ k } = #{ self.class.quote(v) }"}.join(", ")
 
