@@ -26,7 +26,6 @@ require 'orientdb/orm/type/linkmap'
 require 'orientdb/orm/type/field_types'
 
 ActiveModel::Type.register :value,      ActiveModel::Type::Value
-ActiveModel::Type.register :rid,        Orientdb::ORM::Type::RID
 ActiveModel::Type.register :link,       Orientdb::ORM::Type::RID
 ActiveModel::Type.register :linklist,   Orientdb::ORM::Type::LinkList
 ActiveModel::Type.register :linkset,    Orientdb::ORM::Type::LinkSet
