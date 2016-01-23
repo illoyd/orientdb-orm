@@ -5,7 +5,6 @@ module Orientdb
       class UpdateVertex < Base
 
         def initialize(params = {})
-          params       = self.class.normalize_params(params)
           @vertex      = params[:vertex]
           @set         = params[:set]
           @where       = params[:where]
@@ -83,21 +82,6 @@ module Orientdb
           end
 
           "WHERE #{ params }" if params.present?
-        end
-
-        protected
-
-        def self.normalize_params(params)
-          if params.is_a?(Hash)
-            params.with_indifferent_access
-          elsif params.respond_to?(:attributes)
-            {
-              vertex: params,
-              set:    params.attributes
-            }
-          else
-            throw ArgumentError "Unknown params! Given #{ params }. Expected Hash, or Object that responds to attributes."
-          end
         end
 
       end
