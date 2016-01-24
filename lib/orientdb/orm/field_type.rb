@@ -6,13 +6,14 @@ module Orientdb
       # Return a recognised ActiveModel::Type registry name for the given key
       # Not supported:
       #   b (boolean or binary or byte)
+      # Doubles are processed as Decimals due to the way the database incorrectly reports floats as doubles.
       def type_for(key)
         case self[key].try(:strip)
         when FloatType
           :float
-        when DecimalType
+        when DecimalType, DoubleType
           :decimal
-        when ShortType, LongType, DoubleType
+        when ShortType, LongType
           :integer
         when DateType
           :date

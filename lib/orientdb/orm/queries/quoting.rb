@@ -21,7 +21,7 @@ module Orientdb
           when false      then 'FALSE'
           when nil        then "NULL"
           # BigDecimals need to be put in a non-normalized form and quoted.
-          when BigDecimal then value.to_s('F')
+          #when BigDecimal then value.to_s('F')
           when Numeric, ActiveSupport::Duration then value.to_s
           when Date, Time then quote_date(value)
           when Symbol     then "'#{quote_string(value.to_s)}'"

@@ -8,6 +8,7 @@ shared_examples 'a persistable object' do
       string:    'hello',
       integer:   5,
       float:     1.2,
+      decimal:   BigDecimal.new('2.3'),
       link:      Orientdb::ORM::RID.new(5, 0),
       date:      Date.new(2016, 1, 23),
       date_time: Time.new(2016, 1, 23, 8, 22, 54),
@@ -25,7 +26,7 @@ shared_examples 'a persistable object' do
         subject.reload!
 
         # Check that value is returned
-        expect( subject.value ).to eq v
+        expect( subject.value ).to match v
       end
 
     end
