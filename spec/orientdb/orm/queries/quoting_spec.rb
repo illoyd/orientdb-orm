@@ -81,6 +81,14 @@ describe Orientdb::ORM::Quoting do
       expect( subject.class.quote(param) ).to eq("[ 'string', 1, NULL ]")
     end
 
+    it 'quotes Classes' do
+      expect( subject.class.quote(Orientdb::ORM::V) ).to eq "'Orientdb::ORM::V'"
+    end
+
+    it 'throws error object' do
+      expect{ subject.class.quote(Object.new) }.to raise_error(TypeError)
+    end
+
   end #quote
 
 end # Orientdb::ORM::Quoting
