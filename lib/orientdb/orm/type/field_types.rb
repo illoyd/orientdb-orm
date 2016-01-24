@@ -6,6 +6,7 @@ module Orientdb::ORM
     class FieldTypes < ActiveModel::Type::Value
 
       def serialize(value)
+        return nil if value.blank?
         value.map { |rule| rule.join('=') }.join(',')
       end
 

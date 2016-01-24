@@ -28,6 +28,7 @@ describe Orientdb::ORM::FieldType do
     end
 
     it 'gets integer for double' do
+      pending 'Orientdb returns double for floats, so assume all doubles are decimals for now.'
       expect( subject.type_for(:my_double) ).to eq :integer
     end
 
