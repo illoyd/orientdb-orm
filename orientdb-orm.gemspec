@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "activemodel", "~> 5.0.0.beta1"
+  spec.add_dependency "attribute_normalizer"
 
   spec.add_dependency "connection_pool", "~> 2.2"
   spec.add_dependency "orientdb4r", "~> 0.5"

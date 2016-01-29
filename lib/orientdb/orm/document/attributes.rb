@@ -18,6 +18,7 @@ module Orientdb
         ##
         # Assign the attribute with the given value.
         def attribute=(name, value)
+          value = _normalize_attribute(name, value)
           if _value_changed?(name, @attributes[name], value)
             attribute_will_change!(name)
             @attributes[name] = _type_cast_value(name, value)
@@ -42,6 +43,18 @@ module Orientdb
           type = schema.type_for(name)
           cast_value = type.cast(new_value)
           type.changed?(old_value, cast_value, new_value) || type.changed_in_place?(old_value, new_value)
+        end
+
+        ##
+        # Normalize by stripping and blanking, as appropriate
+        def _normalize_attribute(name, value)
+          normalized = value
+
+          schema[name].normalizers.each do |normalizer|
+            normalized = normalizer.respond_to?(:normalize) ? normalizer.normalize(normalized) : normalizer.call(normalized)
+          end
+
+          normalized
         end
 
       end # included

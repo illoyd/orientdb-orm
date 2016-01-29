@@ -1,3 +1,4 @@
+require 'attribute_normalizer'
 require 'orientdb/orm/document/schema_aware'
 require 'orientdb/orm/document/special_attributes'
 require 'orientdb/orm/document/attributes'
@@ -26,6 +27,8 @@ module Orientdb
       include Orientdb::ORM::SpecialAttributes
       include Orientdb::ORM::Finders
       include Orientdb::ORM::Persistence
+
+      include AttributeNormalizer
 
       PROTECTED_KEYS = %w( @rid @class @type @fieldTypes @version )
       EDGE_ATTRIBUTE_REGEX = /^(in|out)_.+$/
