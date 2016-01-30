@@ -53,11 +53,11 @@ module Orientdb
         end
 
         def from_clause
-          Orientdb::ORM::Type.lookup(:link).serialize(@from)
+          self.class.quote Orientdb::ORM::Type.lookup(:link).serialize(@from)
         end
 
         def to_clause
-          Orientdb::ORM::Type.lookup(:link).serialize(@to)
+          self.class.quote Orientdb::ORM::Type.lookup(:link).serialize(@to)
         end
 
         def set_clause
