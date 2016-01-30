@@ -11,11 +11,11 @@ module Orientdb
         end
 
         def execute(conn = nil)
-          execute_command_returning_result(to_query)
+          execute_command_returning_result(to_query, conn)
         end
 
         def to_query
-          sentence = [ 'UPDATE', vertex_clause, set_clause, where_clause ]
+          sentence = [ 'UPDATE', vertex_clause, set_clause, 'RETURN AFTER', where_clause ]
           sentence.flatten.reject(&:blank?).join(' ')
         end
 
@@ -50,7 +50,7 @@ module Orientdb
 
         def vertex_clause
           if @vertex.respond_to?(:_rid)
-            @vertex._rid
+            @vertex._rid.to_s
           elsif @vertex.is_a?(RID)
             @vertex.to_s
           elsif @vertex.is_a?(Class)

@@ -11,7 +11,7 @@ module Orientdb
         end
 
         def execute(conn = nil)
-          execute_command_returning_result(to_query)
+          execute_command_returning_result(to_query, conn)
         end
 
         def to_query
