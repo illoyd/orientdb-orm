@@ -52,21 +52,32 @@ module Orientdb
       # Comparable function.
       def <=>(other)
         return nil unless other.respond_to?(:collection) && other.respond_to?(:position)
-        return self.collection <=> other.collection if (self.collection <=> other.collection) != 0
-        self.position <=> other.position
+        to_ary <=> [ other.collection, other.position ]
       end
 
       ##
       # Equals other if other is a RID or can be cast into a RID
       # HACK Fix the comparison logic here...
       def ==(other)
-        self.eql?(other) || ( !other.is_a?(RID) && self == Orientdb::ORM::Type.lookup(:link).cast(other) )
+        eql?(Orientdb::ORM::Type.lookup(:link).cast(other))
       end
 
       ##
       # Strictly requires other to be a RID
       def eql?(other)
-        other.is_a?(RID) && collection == other.collection && position == other.position
+        other.is_a?(Orientdb::ORM::RID) && (self <=> other) == 0
+      end
+
+      ##
+      # Force hash to always rely on collection and position
+      def hash
+        to_ary.hash
+      end
+
+      ##
+      # Show as an array
+      def to_ary
+        [ self.collection, self.position ]
       end
 
     end
