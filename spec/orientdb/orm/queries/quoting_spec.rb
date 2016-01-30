@@ -71,6 +71,11 @@ describe Orientdb::ORM::Quoting do
       expect( subject.class.quote(param) ).to eq('["string",1,NULL]')
     end
 
+    it 'quotes Link Array' do
+      param = [ Orientdb::ORM::RID.new(1,2), Orientdb::ORM::RID.new(1,2) ]
+      expect( subject.class.quote(param) ).to eq('[#1:2,#1:2]')
+    end
+
     it 'quotes Hashes' do
       param = { 'a' => 'string', 'b' => 1, c: nil }
       expect( subject.class.quote(param) ).to eq('{"a":"string","b":1,"c":NULL}')
@@ -79,6 +84,11 @@ describe Orientdb::ORM::Quoting do
     it 'quotes Sets' do
       param = Set.new([ 'string', 1, 1, 'string', nil, nil ])
       expect( subject.class.quote(param) ).to eq('["string",1,NULL]')
+    end
+
+    it 'quotes Link Set' do
+      param = Set.new([ Orientdb::ORM::RID.new(1,2), Orientdb::ORM::RID.new(1,2) ])
+      expect( subject.class.quote(param) ).to eq('[#1:2]')
     end
 
     it 'quotes Classes' do
