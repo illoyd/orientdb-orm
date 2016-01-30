@@ -12,11 +12,11 @@ describe Orientdb::ORM::Queries::CreateVertex do
       end
 
       it 'assigns set clause' do
-        expect( subject.set_clause ).to eq("SET left = 'right'")
+        expect( subject.set_clause ).to eq('SET left = "right"')
       end
 
       it 'assembles SQL' do
-        expect( subject.to_s ).to eq("CREATE VERTEX ExampleVertex SET left = 'right'")
+        expect( subject.to_s ).to eq('CREATE VERTEX ExampleVertex SET left = "right"')
       end
     end
   end
@@ -42,6 +42,19 @@ describe Orientdb::ORM::Queries::CreateVertex do
 
     it 'assigns #left' do
       expect( subject.execute.first.left ).to eq('right')
+    end
+
+    it 'assigns multi-line input' do
+      value = 'Hello!
+      I am a multiline entry.'
+      subject.set(multiline: value)
+      expect( subject.execute.first.multiline ).to eq(value)
+    end
+
+    it 'assigns a string with an escapable character' do
+      value = 'Hello! I contain a \'quote\'.'
+      subject.set(quoted: value)
+      expect( subject.execute.first.quoted ).to eq(value)
     end
   end
 

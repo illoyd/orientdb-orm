@@ -11,11 +11,11 @@ describe Orientdb::ORM::Quoting do
   describe '#quote' do
 
     it 'quotes a string' do
-      expect( subject.class.quote('hello') ).to eq "'hello'"
+      expect( subject.class.quote('hello') ).to eq '"hello"'
     end
 
     it 'quotes a symbol' do
-      expect( subject.class.quote(:hello) ).to eq "'hello'"
+      expect( subject.class.quote(:hello) ).to eq '"hello"'
     end
 
     it 'quotes a RID' do
@@ -68,21 +68,21 @@ describe Orientdb::ORM::Quoting do
 
     it 'quotes Arrays' do
       param = [ 'string', 1, nil ]
-      expect( subject.class.quote(param) ).to eq("[ 'string', 1, NULL ]")
+      expect( subject.class.quote(param) ).to eq('["string",1,NULL]')
     end
 
     it 'quotes Hashes' do
       param = { 'a' => 'string', 'b' => 1, c: nil }
-      expect( subject.class.quote(param) ).to eq("{ 'a': 'string', 'b': 1, 'c': NULL }")
+      expect( subject.class.quote(param) ).to eq('{"a":"string","b":1,"c":NULL}')
     end
 
     it 'quotes Sets' do
       param = Set.new([ 'string', 1, 1, 'string', nil, nil ])
-      expect( subject.class.quote(param) ).to eq("[ 'string', 1, NULL ]")
+      expect( subject.class.quote(param) ).to eq('["string",1,NULL]')
     end
 
     it 'quotes Classes' do
-      expect( subject.class.quote(Orientdb::ORM::V) ).to eq "'Orientdb::ORM::V'"
+      expect( subject.class.quote(Orientdb::ORM::V) ).to eq '"Orientdb::ORM::V"'
     end
 
     it 'throws error object' do

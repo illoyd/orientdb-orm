@@ -14,8 +14,8 @@ module Orientdb
         # {SQL injection attacks}[http://en.wikipedia.org/wiki/SQL_injection].
         def quote(value)
           case value
-          when String, ActiveSupport::Multibyte::Chars, ActiveModel::Type::Binary::Data
-            "'#{quote_string(value.to_s)}'"
+          when String, ActiveSupport::Multibyte::Chars, ActiveModel::Type::Binary::Data, Class, Symbol
+            quote_string(value.to_s)
           when RID               then value.to_s
           when true              then 'TRUE'
           when false             then 'FALSE'
@@ -23,8 +23,6 @@ module Orientdb
           when BigDecimal, Float then quote_decimal(value)
           when Numeric, ActiveSupport::Duration then value.to_s
           when Date, Time        then quote_date(value)
-          when Symbol            then "'#{quote_string(value.to_s)}'"
-          when Class             then "'#{value}'"
           when Array, Set        then quote_array(value)
           when Hash              then quote_hash(value)
           else raise TypeError, "can't quote #{value.class.name}"
@@ -35,8 +33,9 @@ module Orientdb
 
         # Quotes a string, escaping any ' (single quote) and \ (backslash)
         # characters.
-        def quote_string(s)
-          s.gsub('\\'.freeze, '\&\&'.freeze).gsub("'".freeze, "''".freeze) # ' (for ruby-mode)
+        def quote_string(value)
+          # s.gsub('\\'.freeze, '\&\&'.freeze).gsub("'".freeze, "''".freeze) # ' (for ruby-mode)
+          value.to_json
         end
 
         # Quote date/time values for use in SQL input. Includes microseconds
@@ -50,13 +49,13 @@ module Orientdb
         end
 
         def quote_hash(value)
-          inner = value.map { |k,v| "#{ quote(k) }: #{ quote(v) }" }
-          "{ #{ inner.join(', ') } }"
+          inner = value.map { |k,v| "#{ quote(k) }:#{ quote(v) }" }
+          "{#{ inner.join(',') }}"
         end
 
         def quote_array(value)
           inner = value.map { |v| quote(v) }
-          "[ #{ inner.join(', ') } ]"
+          "[#{ inner.join(',') }]"
         end
 
       end #class_methods
