@@ -8,7 +8,7 @@ module Orientdb
 
           def destroy
             run_callbacks :destroy do
-              Orientdb::ORM::Queries::DeleteVertex.new.vertex(self).execute
+              Orientdb::ORM::Queries::DeleteVertex.new(self).execute
             end
           end
 
