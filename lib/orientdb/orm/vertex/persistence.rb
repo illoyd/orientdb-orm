@@ -6,6 +6,12 @@ module Orientdb
 
         included do
 
+          def destroy
+            run_callbacks :destroy do
+              Orientdb::ORM::Queries::DeleteVertex.new.vertex(self).execute
+            end
+          end
+
           protected
 
           def _create

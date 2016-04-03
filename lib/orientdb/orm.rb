@@ -98,6 +98,7 @@ require 'orientdb/orm/queries/result'
 require 'orientdb/orm/queries/select'
 require 'orientdb/orm/queries/create_vertex'
 require 'orientdb/orm/queries/update_vertex'
+require 'orientdb/orm/queries/delete_vertex'
 require 'orientdb/orm/queries/create_edge'
 
 # Client, pool, and database objects
