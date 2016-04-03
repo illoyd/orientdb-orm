@@ -5,7 +5,7 @@ module Orientdb
 
       included do
 
-        define_model_callbacks :validation, :save, :create, :update
+        define_model_callbacks :validation, :save, :create, :update, :destroy
 
         def save
           run_callbacks :validation do
