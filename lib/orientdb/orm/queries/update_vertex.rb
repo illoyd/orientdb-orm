@@ -2,16 +2,12 @@ module Orientdb
   module ORM
     module Queries
 
-      class UpdateVertex < Base
+      class UpdateVertex < Command
 
         def initialize(params = {})
           @vertex      = params[:vertex]
           @set         = params[:set]
           @where       = params[:where]
-        end
-
-        def execute(conn = nil)
-          execute_command_returning_result(to_query, conn)
         end
 
         def to_query

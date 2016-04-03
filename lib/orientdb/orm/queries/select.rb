@@ -2,7 +2,7 @@ module Orientdb
   module ORM
     module Queries
 
-      class Select < Base
+      class Select < Query
 
         def initialize(params = {})
           params       = self.class.normalize_params(params)
@@ -10,13 +10,6 @@ module Orientdb
           @from        = params[:from]
           @where       = params[:where]
           @limit       = params[:limit]
-        end
-
-        def execute(conn = nil)
-          response = execute_query(to_query)
-          Result.new( response ).tap do |results|
-            Orientdb::ORM::logger.debug { "#{ self.class.name } Results: #{ results }" }
-          end
         end
 
         def to_query

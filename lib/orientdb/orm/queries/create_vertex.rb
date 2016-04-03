@@ -2,16 +2,12 @@ module Orientdb
   module ORM
     module Queries
 
-      class CreateVertex < Base
+      class CreateVertex < Command
 
         def initialize(params = {})
           params       = self.class.normalize_params(params)
           @vertex      = params[:vertex]
           @set         = params[:set]
-        end
-
-        def execute(conn = nil)
-          execute_command_returning_result(to_query, conn)
         end
 
         def to_query

@@ -2,17 +2,13 @@ module Orientdb
   module ORM
     module Queries
 
-      class CreateEdge < Base
+      class CreateEdge < Command
 
         def initialize(params = {})
           @edge        = params[:edge]
           @from        = params[:from]
           @to          = params[:to]
           @set         = params[:set]
-        end
-
-        def execute(conn = nil)
-          execute_command_returning_result(to_query)
         end
 
         def to_query

@@ -92,6 +92,8 @@ require 'orientdb/orm/e'
 # Queries
 require 'orientdb/orm/queries/quoting'
 require 'orientdb/orm/queries/base'
+require 'orientdb/orm/queries/query'
+require 'orientdb/orm/queries/command'
 require 'orientdb/orm/queries/result'
 require 'orientdb/orm/queries/select'
 require 'orientdb/orm/queries/create_vertex'
