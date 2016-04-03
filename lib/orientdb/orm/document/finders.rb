@@ -13,7 +13,8 @@ module Orientdb
         end
 
         def where(search={})
-          Orientdb::ORM::Queries::Select.new.from(self.name.demodulize).where(search).execute
+          serialized_search = compiled_schema.serialize_attributes(search)
+          Orientdb::ORM::Queries::Select.new.from(self.name.demodulize).where(serialized_search).execute
         end
 
         def find_by(search={})

@@ -18,6 +18,12 @@ module Orientdb
         end
       end
 
+      def dup
+        self.class.new.tap do |schema|
+          schema.reverse_merge!(self)
+        end
+      end
+
       def <<(attr)
         @attributes[attr.name] = attr
       end
@@ -69,6 +75,12 @@ module Orientdb
           code = field_types.type_for(k)
           type = Orientdb::ORM::Type.lookup(code)
           @attributes[k] = AttributeDefinition.new(k, type)
+        end
+      end
+
+      def serialize_attributes(values)
+        values.each_with_object({}) do |(k,v),h|
+          h[k.to_s] = serialize(k.to_s,v)
         end
       end
 

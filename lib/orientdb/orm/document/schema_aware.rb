@@ -6,7 +6,7 @@ module Orientdb
       included do
 
         def schema
-          @schema ||= self.class.compiled_schema
+          @schema ||= self.class.compiled_schema.dup
         end
 
         private
