@@ -18,7 +18,7 @@ module Orientdb
         end
 
         def find_by(search={})
-          where(search).first
+          where(search).limit(1).first
         end
 
         def find_by!(search={})
@@ -31,6 +31,18 @@ module Orientdb
 
         alias :find_by_id :find
         alias :find_by_rid :find
+
+        def take(count = nil)
+          all.limit(count || 1).last
+        end
+
+        def first
+          all.order('@rid ASC').limit(1).first
+        end
+
+        def last
+          all.order('@rid DESC').limit(1).first
+        end
 
         ##
         # Find or create a new object by the given attributes.
