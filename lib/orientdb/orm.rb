@@ -100,6 +100,7 @@ require 'orientdb/orm/clauses/concerns/has_limit'
 # Queries
 require 'orientdb/orm/queries/base'
 require 'orientdb/orm/queries/query'
+require 'orientdb/orm/queries/lazy'
 require 'orientdb/orm/queries/command'
 require 'orientdb/orm/queries/result'
 require 'orientdb/orm/queries/select'
