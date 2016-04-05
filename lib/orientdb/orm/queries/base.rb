@@ -5,6 +5,9 @@ module Orientdb
       class Base
         include Orientdb::ORM::Quoting
 
+        def initialize(params = {})
+          @params ||= (params || {})
+        end
         def self.convert_hash_to_key_value_assignment(hash, glue = ', ')
           hash.map { |k,v| "#{ k } = #{ self.quote(v) }" }.join(glue)
         end

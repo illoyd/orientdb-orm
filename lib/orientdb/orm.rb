@@ -89,8 +89,15 @@ require 'orientdb/orm/edge'
 require 'orientdb/orm/v'
 require 'orientdb/orm/e'
 
+# Quoting
+require 'orientdb/orm/concerns/quoting'
+
+# Clauses
+require 'orientdb/orm/clauses/base'
+require 'orientdb/orm/clauses/limit'
+require 'orientdb/orm/clauses/concerns/has_limit'
+
 # Queries
-require 'orientdb/orm/queries/quoting'
 require 'orientdb/orm/queries/base'
 require 'orientdb/orm/queries/query'
 require 'orientdb/orm/queries/command'

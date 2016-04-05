@@ -3,17 +3,18 @@ module Orientdb
     module Queries
 
       class Select < Query
+        include HasLimit
 
         def initialize(params = {})
-          params       = self.class.normalize_params(params)
-          @projections = params[:projections]
-          @from        = params[:from]
-          @where       = params[:where]
-          @limit       = params[:limit]
+          super
+          @params       = self.class.normalize_params(params)
+          @projections = @params[:projections]
+          @from        = @params[:from]
+          @where       = @params[:where]
         end
 
         def to_query
-          sentence = [ 'SELECT', projections_clause, 'FROM', from_clause, where_clause, limit_clause ]
+          sentence = [ 'SELECT', projections_clause, 'FROM', from_clause, where_clause, limit_clause.to_s ]
           sentence.flatten.reject(&:blank?).join(' ')
         end
 
@@ -37,11 +38,6 @@ module Orientdb
           else
             @where = options
           end
-          self
-        end
-
-        def limit(value)
-          @limit = value
           self
         end
 
@@ -77,10 +73,6 @@ module Orientdb
             @where
           end
           "WHERE #{ params }" if params.present?
-        end
-
-        def limit_clause
-          "LIMIT #{ @limit }" if @limit.present?
         end
 
         protected

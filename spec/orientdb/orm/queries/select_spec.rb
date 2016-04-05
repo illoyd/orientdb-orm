@@ -20,7 +20,7 @@ describe Orientdb::ORM::Queries::Select do
       end
 
       it 'assigns limit clause' do
-        expect( subject.limit_clause ).to eq('LIMIT 5')
+        expect( subject.limit_clause.to_s ).to eq('LIMIT 5')
       end
 
       it 'assembles SQL' do
@@ -45,7 +45,7 @@ describe Orientdb::ORM::Queries::Select do
       end
 
       it 'assigns limit clause' do
-        expect( subject.limit_clause ).to eq('LIMIT 1')
+        expect( subject.limit_clause.to_s ).to eq('LIMIT 1')
       end
 
       it 'assembles SQL' do
@@ -71,7 +71,7 @@ describe Orientdb::ORM::Queries::Select do
       end
 
       it 'assigns limit clause' do
-        expect( subject.limit_clause ).to eq('LIMIT 1')
+        expect( subject.limit_clause.to_s ).to eq('LIMIT 1')
       end
 
       it 'assembles SQL' do
