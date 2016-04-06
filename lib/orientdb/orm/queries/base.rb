@@ -9,10 +9,6 @@ module Orientdb
           @params ||= (params || {})
         end
 
-        def self.lazy(params = {})
-          Queries::Lazy.new(new(params))
-        end
-
         def self.convert_hash_to_key_value_assignment(hash, glue = ', ')
           hash.map { |k,v| "#{ k } = #{ self.quote(v) }" }.join(glue)
         end
