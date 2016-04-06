@@ -14,7 +14,11 @@ module Orientdb
 
         def where(search={})
           serialized_search = compiled_schema.serialize_attributes(search)
-          Queries::Select.lazy.from(self.name.demodulize).where(serialized_search) #.execute
+          Queries::LazyResult.new(
+            Queries::Cached.new(
+              Queries::Select.from(self.name.demodulize).where(serialized_search)
+            )
+          )
         end
 
         def find_by(search={})
