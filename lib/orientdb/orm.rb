@@ -70,6 +70,7 @@ require 'orientdb/orm/constants'
 require 'orientdb/orm/errors'
 require 'orientdb/orm/field_type'
 require 'orientdb/orm/attribute_definition'
+require 'orientdb/orm/identity_delegator'
 
 # Common objects
 require 'orientdb/orm/rid'

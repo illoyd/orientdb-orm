@@ -16,7 +16,7 @@ module Orientdb
           serialized_search = compiled_schema.serialize_attributes(search)
           Queries::LazyResult.new(
             Queries::Cached.new(
-              Queries::Select.from(self.name.demodulize).where(serialized_search)
+              Queries::Select.new.from(self.name.demodulize).where(serialized_search)
             )
           )
         end

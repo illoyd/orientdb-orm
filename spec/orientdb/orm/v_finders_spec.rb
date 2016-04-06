@@ -9,8 +9,7 @@ describe Orientdb::ORM::Finders, :with_database do
     describe '.all' do
 
       it 'returns a Result object' do
-        pending 'Finders are lazy resolvers'
-        expect( described_class.all ).to be_an(Orientdb::ORM::Queries::Result)
+        expect( described_class.all ).to be_an(Orientdb::ORM::Queries::LazyResult)
       end
 
       it 'returns all objects' do
@@ -34,8 +33,7 @@ describe Orientdb::ORM::Finders, :with_database do
 
         context 'with RID' do
           it 'returns an array of objects' do
-            pending 'Finders are lazy resolvers'
-            expect( described_class.where(query) ).to be_an(Orientdb::ORM::Queries::Result)
+            expect( described_class.where(query) ).to be_an(Orientdb::ORM::Queries::LazyResult)
           end
 
           it 'returns only one object' do
@@ -51,8 +49,7 @@ describe Orientdb::ORM::Finders, :with_database do
           let(:query) { {'name' => 'admin'} }
 
           it 'returns an array of objects' do
-            pending 'Finders are lazy resolvers'
-            expect( described_class.where(query) ).to be_an(Orientdb::ORM::Queries::Result)
+            expect( described_class.where(query) ).to be_an(Orientdb::ORM::Queries::LazyResult)
           end
 
           it 'returns only one objects' do
