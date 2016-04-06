@@ -2,7 +2,7 @@ module Orientdb
   module ORM
     module Queries
 
-      class Lazy < SimpleDelegator
+      class Lazy < IdentityDelegator
 
         delegate :first, :last, :each, :map, :count, :to_a, :[], to: :execute
 
@@ -10,10 +10,6 @@ module Orientdb
           @result ||= __getobj__.execute
         end
 
-        def method_missing(m, *args, &block)
-          response = super
-          response == __getobj__ ? self : response
-        end
       end
 
     end
