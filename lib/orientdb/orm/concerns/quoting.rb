@@ -25,6 +25,7 @@ module Orientdb
           when Date, Time        then quote_date(value)
           when Array, Set        then quote_array(value)
           when Hash              then quote_hash(value)
+          when Queries::Base     then quote_query(value)
           else raise TypeError, "can't quote #{value.class.name}"
           end
         end
@@ -56,6 +57,10 @@ module Orientdb
         def quote_array(value)
           inner = value.map { |v| quote(v) }
           "[#{ inner.join(',') }]"
+        end
+
+        def quote_query(value)
+          "(#{ value.to_query })"
         end
 
       end #class_methods
