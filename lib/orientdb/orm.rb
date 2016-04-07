@@ -96,7 +96,9 @@ require 'orientdb/orm/concerns/quoting'
 # Clauses
 require 'orientdb/orm/clauses/base'
 require 'orientdb/orm/clauses/limit'
-require 'orientdb/orm/clauses/concerns/has_limit'
+
+# Mixins for queries
+require 'orientdb/orm/queries/concerns/has_limit'
 
 # Queries
 require 'orientdb/orm/queries/base'
