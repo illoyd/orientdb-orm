@@ -95,10 +95,13 @@ require 'orientdb/orm/concerns/quoting'
 
 # Clauses
 require 'orientdb/orm/clauses/base'
+require 'orientdb/orm/clauses/array_base'
 require 'orientdb/orm/clauses/limit'
+require 'orientdb/orm/clauses/order'
 
 # Mixins for queries
 require 'orientdb/orm/queries/concerns/has_limit'
+require 'orientdb/orm/queries/concerns/has_order'
 
 # Queries
 require 'orientdb/orm/queries/base'
