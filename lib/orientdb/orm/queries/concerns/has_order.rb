@@ -21,6 +21,10 @@ module Orientdb
             @params[:order].present?
           end
 
+          def order_clause
+            @params[:order]
+          end
+
         end #included
 
         class_methods do

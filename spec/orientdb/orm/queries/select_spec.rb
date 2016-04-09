@@ -24,7 +24,7 @@ describe Orientdb::ORM::Queries::Select do
       end
 
       it 'assembles SQL' do
-        expect( subject.to_s ).to eq('SELECT fieldA, fieldB FROM Test WHERE left = "right" LIMIT 5')
+        expect( subject.to_s ).to eq('SELECT fieldA, fieldB FROM Test WHERE left = "right" ORDER field LIMIT 5')
       end
     end
 

@@ -4,6 +4,7 @@ module Orientdb
 
       class Select < Query
         include HasLimit
+        include HasOrder
 
         def initialize(params = {})
           super
@@ -14,7 +15,7 @@ module Orientdb
         end
 
         def to_query
-          sentence = [ 'SELECT', projections_clause, 'FROM', from_clause, where_clause, limit_clause.to_s ]
+          sentence = [ 'SELECT', projections_clause, 'FROM', from_clause, where_clause, order_clause, limit_clause.to_s ]
           sentence.flatten.reject(&:blank?).join(' ')
         end
 
