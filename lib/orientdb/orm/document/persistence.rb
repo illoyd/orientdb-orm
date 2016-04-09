@@ -8,9 +8,7 @@ module Orientdb
         define_model_callbacks :validation, :save, :create, :update, :destroy
 
         def save
-          run_callbacks :validation do
-            return false unless valid?
-          end
+          return false unless valid?
           run_callbacks :save do
             create_or_update
           end
@@ -35,6 +33,12 @@ module Orientdb
           assign_attributes(obj.attributes)
           changes_applied
           self
+        end
+
+        def valid?
+          run_callbacks :validation do
+            super
+          end
         end
 
         protected
