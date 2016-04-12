@@ -50,13 +50,20 @@ module Orientdb
 
         ##
         # Find or create a new object by the given attributes.
-        # Will perform a #find_by and, if not found, create using the given properties.
+        # Will perform a find_by and, if not found, create using the given properties.
         def find_or_create_by(attributes)
           find_by(attributes) || create(attributes)
         end
 
         def find_or_create_by!(attributes)
           find_by(attributes) || create!(attributes)
+        end
+
+        ##
+        # Find or initialize a new object by the given attributes.
+        # Effectively, performs a find_by and, if not found, a new with the given properties.
+        def find_or_initialize_by(attributes)
+          find_by(attributes) || new(attributes)
         end
 
       end
