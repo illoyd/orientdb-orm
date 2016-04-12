@@ -15,7 +15,7 @@ module Orientdb
         end
 
         def save!
-          save || ( raise Orientdb::ORM::ObjectNotSaved.new(nil, self) )
+          save || ( raise Orientdb::ORM::ObjectNotSaved.new(self.errors.messages, self) )
         end
 
         def update(new_attributes)
