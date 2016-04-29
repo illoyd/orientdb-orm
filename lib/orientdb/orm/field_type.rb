@@ -18,7 +18,7 @@ module Orientdb
         when DateType
           :date
         when DateTimeType
-          :date_time
+          :datetime
         when SetType
           :set
         when LinkType

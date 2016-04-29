@@ -11,7 +11,7 @@ shared_examples 'a persistable object' do
       decimal:   BigDecimal.new('2.3'),
       link:      Orientdb::ORM::RID.new(5, 0),
       date:      Date.new(2016, 1, 23),
-      date_time: Time.new(2016, 1, 23, 8, 22, 54),
+      datetime:  Time.new(2016, 1, 23, 8, 22, 54),
       linklist:  [ Orientdb::ORM::RID.new(5, 0), Orientdb::ORM::RID.new(5, 1) ],
       linkset:   Set.new([ Orientdb::ORM::RID.new(5, 0), Orientdb::ORM::RID.new(5, 1) ]),
       linkmap:   { hello: Orientdb::ORM::RID.new(5, 0) },

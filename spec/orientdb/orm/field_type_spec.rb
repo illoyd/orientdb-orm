@@ -45,7 +45,7 @@ describe Orientdb::ORM::FieldType do
     end
 
     it 'gets date time for date time' do
-      expect( subject.type_for(:my_datetime) ).to eq :date_time
+      expect( subject.type_for(:my_datetime) ).to eq :datetime
     end
 
     it 'gets set for set' do
