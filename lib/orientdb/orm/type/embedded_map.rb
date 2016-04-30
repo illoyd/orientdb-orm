@@ -3,7 +3,7 @@ require 'active_model/type'
 module Orientdb::ORM
   module Type
 
-    class Map < Orientdb::ORM::Type::EmbeddedValue
+    class EmbeddedMap < Orientdb::ORM::Type::EmbeddedValue
 
       def serialize(value)
         value.each_with_object(default) { |(k,v),h| h[k] = embedded_type.serialize(v) }

@@ -3,7 +3,7 @@ require 'active_model/type'
 module Orientdb::ORM
   module Type
 
-    class LinkList < Orientdb::ORM::Type::List
+    class LinkList < Orientdb::ORM::Type::EmbeddedList
 
       def initialize
         super(:link)

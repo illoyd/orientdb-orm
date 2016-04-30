@@ -3,11 +3,11 @@ require 'active_model/type'
 module Orientdb::ORM
   module Type
 
-    class List < Orientdb::ORM::Type::EmbeddedValue
+    class EmbeddedList < Orientdb::ORM::Type::EmbeddedValue
 
       def serialize(value)
         return nil if value.blank?
-        value.map { |v| embedded_type.serialize(v) }
+        value.map { |v| @embedded_type.serialize(v) }
       end
 
       def default
@@ -26,7 +26,7 @@ module Orientdb::ORM
         end
 
         # For every entry, type cast it
-        value.map { |v| embedded_type.cast(v) }
+        value.map { |v| @embedded_type.cast(v) }
       end
 
     end

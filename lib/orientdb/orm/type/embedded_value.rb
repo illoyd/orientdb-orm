@@ -7,14 +7,7 @@ module Orientdb::ORM
       attr_reader :embedded_type
 
       def initialize(type = nil)
-        @embedded_type = case type
-          when ActiveModel::Type::Value
-            type
-          when Symbol, String
-            Orientdb::ORM::Type.lookup(type)
-          else
-            Orientdb::ORM::Type.lookup(:value)
-          end
+        @embedded_type = Orientdb::ORM::Type.lookup(type.presence || :value)
       end
 
     end

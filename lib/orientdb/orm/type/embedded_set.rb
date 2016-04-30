@@ -3,7 +3,7 @@ require 'active_model/type'
 module Orientdb::ORM
   module Type
 
-    class Set < Orientdb::ORM::Type::List
+    class EmbeddedSet < Orientdb::ORM::Type::EmbeddedList
 
       def default
         Set.new

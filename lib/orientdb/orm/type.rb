@@ -20,24 +20,30 @@ module Orientdb
 end # Orientdb
 
 require 'orientdb/orm/type/embedded_value'
-require 'orientdb/orm/type/list'
-require 'orientdb/orm/type/set'
-require 'orientdb/orm/type/map'
+require 'orientdb/orm/type/embedded_list'
+require 'orientdb/orm/type/embedded_set'
+require 'orientdb/orm/type/embedded_map'
 require 'orientdb/orm/type/link'
 require 'orientdb/orm/type/linklist'
 require 'orientdb/orm/type/linkset'
 require 'orientdb/orm/type/linkmap'
 require 'orientdb/orm/type/field_types'
 
-ActiveModel::Type.register :value,      ActiveModel::Type::Value
-ActiveModel::Type.register :link,       Orientdb::ORM::Type::Link
-ActiveModel::Type.register :linklist,   Orientdb::ORM::Type::LinkList
-ActiveModel::Type.register :linkset,    Orientdb::ORM::Type::LinkSet
-ActiveModel::Type.register :linkmap,    Orientdb::ORM::Type::LinkMap
-ActiveModel::Type.register :fieldtypes, Orientdb::ORM::Type::FieldTypes
+ActiveModel::Type.register :value,        ActiveModel::Type::Value
 
-ActiveModel::Type.register :set,        Orientdb::ORM::Type::Set
-ActiveModel::Type.register :list,       Orientdb::ORM::Type::List
-ActiveModel::Type.register :array,      Orientdb::ORM::Type::List
-ActiveModel::Type.register :map,        Orientdb::ORM::Type::Map
-ActiveModel::Type.register :hash,       Orientdb::ORM::Type::Map
+ActiveModel::Type.register :embeddedset,  Orientdb::ORM::Type::EmbeddedSet
+ActiveModel::Type.register :embeddedlist, Orientdb::ORM::Type::EmbeddedList
+ActiveModel::Type.register :embeddedmap,  Orientdb::ORM::Type::EmbeddedMap
+
+ActiveModel::Type.register :set,          Orientdb::ORM::Type::EmbeddedSet
+ActiveModel::Type.register :list,         Orientdb::ORM::Type::EmbeddedList
+ActiveModel::Type.register :array,        Orientdb::ORM::Type::EmbeddedList
+ActiveModel::Type.register :map,          Orientdb::ORM::Type::EmbeddedMap
+ActiveModel::Type.register :hash,         Orientdb::ORM::Type::EmbeddedMap
+
+ActiveModel::Type.register :link,         Orientdb::ORM::Type::Link
+ActiveModel::Type.register :linklist,     Orientdb::ORM::Type::LinkList
+ActiveModel::Type.register :linkset,      Orientdb::ORM::Type::LinkSet
+ActiveModel::Type.register :linkmap,      Orientdb::ORM::Type::LinkMap
+ActiveModel::Type.register :fieldtypes,   Orientdb::ORM::Type::FieldTypes
+

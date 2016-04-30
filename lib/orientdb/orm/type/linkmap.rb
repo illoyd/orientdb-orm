@@ -3,7 +3,7 @@ require 'active_model/type'
 module Orientdb::ORM
   module Type
 
-    class LinkMap < Orientdb::ORM::Type::Map
+    class LinkMap < Orientdb::ORM::Type::EmbeddedMap
 
       def initialize
         super(:link)
