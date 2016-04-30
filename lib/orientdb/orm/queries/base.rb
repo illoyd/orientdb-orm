@@ -10,7 +10,24 @@ module Orientdb
         end
 
         def self.convert_hash_to_key_value_assignment(hash, glue = ', ')
-          hash.map { |k,v| "#{ k } = #{ self.quote(v) }" }.join(glue)
+          hash.map { |k,v| convert_key_value_assignment(k,v) }.join(glue)
+        end
+
+        def self.convert_key_value_assignment(k, v)
+          "#{ k } = #{ self.quote(v) }"
+        end
+
+        def self.convert_hash_to_key_value_assignment_or_inclusion(hash, glue = ', ')
+          hash.map { |k,v| convert_key_value_assignment_or_inclusion(k,v) }.join(glue)
+        end
+
+        def self.convert_key_value_assignment_or_inclusion(k, v)
+          case v
+          when Set, Array
+            "#{ k } IN #{ self.quote(v) }"
+          else
+            convert_key_value_assignment(k,v)
+          end
         end
 
         def self.target_rid_for(param)

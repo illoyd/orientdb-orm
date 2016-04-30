@@ -69,7 +69,7 @@ module Orientdb
 
         def where_clause
           params = if @where.is_a?(Hash)
-            self.class.convert_hash_to_key_value_assignment(@where, " AND ")
+            self.class.convert_hash_to_key_value_assignment_or_inclusion(@where, " AND ")
           else
             @where
           end
