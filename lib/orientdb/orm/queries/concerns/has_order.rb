@@ -22,7 +22,7 @@ module Orientdb
           end
 
           def order_clause
-            @params[:order]
+            order? ? "ORDER #{ @params[:order] }" : nil
           end
 
         end #included
