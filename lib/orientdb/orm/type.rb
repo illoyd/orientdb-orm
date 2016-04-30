@@ -19,6 +19,10 @@ module Orientdb
   end # ORM
 end # Orientdb
 
+require 'orientdb/orm/type/embedded_value'
+require 'orientdb/orm/type/list'
+require 'orientdb/orm/type/set'
+require 'orientdb/orm/type/map'
 require 'orientdb/orm/type/link'
 require 'orientdb/orm/type/linklist'
 require 'orientdb/orm/type/linkset'
@@ -31,3 +35,9 @@ ActiveModel::Type.register :linklist,   Orientdb::ORM::Type::LinkList
 ActiveModel::Type.register :linkset,    Orientdb::ORM::Type::LinkSet
 ActiveModel::Type.register :linkmap,    Orientdb::ORM::Type::LinkMap
 ActiveModel::Type.register :fieldtypes, Orientdb::ORM::Type::FieldTypes
+
+ActiveModel::Type.register :set,        Orientdb::ORM::Type::Set
+ActiveModel::Type.register :list,       Orientdb::ORM::Type::List
+ActiveModel::Type.register :array,      Orientdb::ORM::Type::List
+ActiveModel::Type.register :map,        Orientdb::ORM::Type::Map
+ActiveModel::Type.register :hash,       Orientdb::ORM::Type::Map
