@@ -9,7 +9,9 @@ module Orientdb
 
         ##
         # Return the value
+        # FIXME: Check if this is an intelligent option; might be better to provide a special case for collections, etc.
         def attribute(name)
+          # attribute=( name, schema.default_for(name) ) if @attributes[name].nil?
           @attributes[name]
         end
 
