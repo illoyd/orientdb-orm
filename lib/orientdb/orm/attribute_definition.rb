@@ -10,7 +10,7 @@ module Orientdb
         @name              = name.to_s
         @accessor          = options[:accessor] || name
         @type              = self.class.coerce_type(type)
-        @default           = options[:default]
+        @default           = options[:default] || ( @type.method(:default) if @type.respond_to?(:default) )
         @validates_options = options[:validates]
         @normalizers       = _normalizers_or_default options[:normalizes] || options[:normalizers]
       end

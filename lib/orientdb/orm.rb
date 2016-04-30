@@ -75,8 +75,11 @@ require 'orientdb/orm/identity_delegator'
 # Common objects
 require 'orientdb/orm/rid'
 
-# Type converters
+# Types
 require 'orientdb/orm/type'
+require 'orientdb/orm/link_list'
+require 'orientdb/orm/link_set'
+require 'orientdb/orm/link_map'
 
 # Schema
 require 'orientdb/orm/schema'

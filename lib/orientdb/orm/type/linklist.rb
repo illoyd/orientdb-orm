@@ -12,6 +12,10 @@ module Orientdb::ORM
         value.map { |v| rtype.serialize(v) }
       end
 
+      def default
+        Orientdb::ORM::LinkList.new
+      end
+
       private
 
       def cast_value(value)
@@ -25,7 +29,7 @@ module Orientdb::ORM
 
         # For every entry, convert to a RID
         rtype = self.class.link_type
-        value.map { |v| rtype.cast(v) }
+        value.each_with_object(Orientdb::ORM::LinkList.new) { |v, list| list << rtype.cast(v) }
       end
 
       def self.link_type

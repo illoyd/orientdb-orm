@@ -5,10 +5,14 @@ module Orientdb::ORM
 
     class LinkSet < Orientdb::ORM::Type::LinkList
 
+      def default
+        Orientdb::ORM::LinkSet.new
+      end
+
       private
 
       def cast_value(value)
-        Set.new(super)
+        Orientdb::ORM::LinkSet.new(super)
       end
 
     end
