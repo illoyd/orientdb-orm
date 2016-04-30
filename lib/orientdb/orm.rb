@@ -93,6 +93,10 @@ require 'orientdb/orm/edge'
 require 'orientdb/orm/v'
 require 'orientdb/orm/e'
 
+# Mixins for helper objects
+require 'orientdb/orm/has_edges'
+require 'orientdb/orm/has_timestamps'
+
 # Quoting
 require 'orientdb/orm/concerns/quoting'
 
