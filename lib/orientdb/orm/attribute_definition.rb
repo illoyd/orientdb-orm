@@ -4,7 +4,7 @@ module Orientdb
     ##
     # TODO: Convert to a struct
     class AttributeDefinition
-      attr_accessor :name, :accessor, :type, :default, :validates_options
+      attr_accessor :name, :accessor, :type, :validates_options
 
       def initialize(name, type = :value, options = {})
         @name              = name.to_s
@@ -17,6 +17,10 @@ module Orientdb
 
       def normalizers
         @cached_normalizers ||= @normalizers.map { |normalizer| normalizer.is_a?(Symbol) ? AttributeNormalizer.configuration.normalizers[normalizer] : normalizer }
+      end
+
+      def default
+        @default.respond_to?(:call) ? @default.call : @default
       end
 
       def self.coerce_type(type)

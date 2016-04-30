@@ -37,8 +37,16 @@ describe Orientdb::ORM::AttributeDefinition do
   end
 
   describe '#default' do
-    it 'accepts a default option' do
+    it 'accepts a default value option' do
       expect( described_class.new('field', :value, default: 'bob').default ).to eq('bob')
+    end
+
+    it 'accepts a default proc option' do
+      expect( described_class.new('field', :value, default: ->{ 'bob' }).default ).to eq('bob')
+    end
+
+    it 'accepts a default proc that evaluates to an object' do
+      expect( described_class.new('field', :value, default: ->{ Hash.new }).default ).to eq(Hash.new)
     end
 
     it 'accepts a nil option' do
