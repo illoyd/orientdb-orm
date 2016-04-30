@@ -15,8 +15,16 @@ module Orientdb
           attribute('out'.freeze)
         end
 
+        def from_object
+          @from_object ||= from.fetch
+        end
+
         def to
           attribute('in'.freeze)
+        end
+
+        def to_object
+          @to_object ||= to.fetch
         end
 
       end # included
