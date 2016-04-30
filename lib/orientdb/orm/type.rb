@@ -47,3 +47,6 @@ ActiveModel::Type.register :linkset,      Orientdb::ORM::Type::LinkSet
 ActiveModel::Type.register :linkmap,      Orientdb::ORM::Type::LinkMap
 ActiveModel::Type.register :fieldtypes,   Orientdb::ORM::Type::FieldTypes
 
+# Patch for change to 'datetime' registration label (changed from :date_time to :datetime, so needs to be added to be reverse compatible)
+ActiveModel::Type.register :datetime,     ActiveModel::Type::DateTime, override: false
+
